@@ -6,26 +6,23 @@ import { useEthers} from '@usedapp/core';
 import { ethers } from 'ethers';
 import { useModal } from 'react-simple-modal-provider'
 import { Contract } from '@ethersproject/contracts';
+import { formatUnits } from 'ethers/lib/utils';
 import PrivateAirdropAbi from 'config/abi/PrivateAirdropAbi.json';
 import { getUserParticipationPrivate, getUserParticipationPublic } from 'utils/getAirdropList'
+import {useAirdropIsWL, useAirdropGetParticipation, useAirdropIsClaimed, useAirdropPortionSize} from 'hooks/useAirdropInfo'
 
 
 
-export default function UserPanel({is_private, amount, icon, filled_percent, ends_on, status, whitelist_address, whitelisted , remaining}) {
+export default function UserPanel({handleSetRemaining, is_private, amount, icon, filled_percent, ends_on, status, whitelist_address, whitelisted , remaining}) {
     const { id } = useParams()
     const [isAirdropClaimed, setIsAirdropClaimed] = useState();
     const [isWL, setIsWL] = useState();
     const [allocation, setAllocation] = useState();
-
-    
     const {library, chainId, account, active } = useEthers()   
     const { open: openLoadingModal, close: closeLoadingModal } = useModal('LoadingModal')
+    
 
-    console.log(amount, 'amount')
-    console.log(isWL, 'isWL')
-    console.log(is_private, 'is_private')
-    console.log(isAirdropClaimed, 'isAirdropClaimed')
-    console.log(status, 'status')
+    
 
     useEffect(() => {
         async function fetchUserInfo() {
@@ -33,12 +30,12 @@ export default function UserPanel({is_private, amount, icon, filled_percent, end
             if(account !== undefined && is_private){
                 const info = await getUserParticipationPrivate(id, account);
                 setIsWL(info.data[0].isWL)
-                setAllocation(info.data[0].participation.allocation.toNumber())
+                setAllocation(formatUnits(info.data[0].participation.allocation,18))
                 setIsAirdropClaimed(info.data[0].participation.claimed) 
             }else if(account !== undefined && !is_private){
                 const info = await getUserParticipationPublic(id, account);
                 setIsWL(false)
-                setAllocation(info.data[0].portionSize.toNumber())
+                setAllocation(formatUnits(info.data[0].portionSize, 18))
                 setIsAirdropClaimed(info.data[0].isAirdropClaimed)
             }
         }
@@ -58,6 +55,9 @@ export default function UserPanel({is_private, amount, icon, filled_percent, end
           openLoadingModal()
           const claim = await contract.claim()
           await claim.wait()
+          setIsAirdropClaimed(true)
+          debugger
+          handleSetRemaining(allocation)
           closeLoadingModal()
           return
         } catch (error) {

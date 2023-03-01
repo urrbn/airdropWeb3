@@ -15,11 +15,11 @@ const Tabs = [
     },
     {
         id: 2,
-        tabName: 'Ended',
+        tabName: 'Upcoming',
     },
     {
         id: 3,
-        tabName: 'Timed',
+        tabName: 'Ended',
     },
 ]
 

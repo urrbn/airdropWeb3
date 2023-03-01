@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import Createsale from './Createsale'
 import Detailspage from './Detailspage'
 import Infopage from './Infopage'
-import AdminPanel from '../AirdropPage/Admin/index.js';
+import StartPublicAirdrop from '../AirdropPage/Modal/StartPublicAirdrop'
+import StartPrivateAirdrop from '../AirdropPage/Modal/StartPrivateAirdrop'
 
 const panel_items = [
     {
@@ -16,6 +17,10 @@ const panel_items = [
     {
         id: 3,
         name: 'Preview',
+    }, 
+    {
+        id: 4,
+        name: 'Admin Panel',
     }
 ]
 
@@ -40,6 +45,7 @@ const token = {
 export default function AirdropPanel({airdropData, setAirdropData, initAirdropState}) {
     const [active, setActive] = useState('Token Info')
     const [amount, setAmount] = useState(14766538)
+    const [modal, showModal] = useState(0);
 
     return (
         <div className="w-full flex justify-center">
@@ -70,6 +76,9 @@ export default function AirdropPanel({airdropData, setAirdropData, initAirdropSt
                         {active === 'Preview' && (
                             <Createsale setActive={setActive} setAirdropData={setAirdropData} airdropData={airdropData} token={token} amount={amount}/>
                         )}
+                        {/* {active === 'Admin Panel' && (
+                            <AdminPanelCreation showModal={showModal} />
+                        )} */}
                     </div>
                 </div>
             </div>

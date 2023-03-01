@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PreviewHeader from '../../Common/PreviewHeader'
 import BackArrowSVG from '../../../svgs/back_arrow'
 import PreviewDetails from '../../Common/PreviewDetails'
@@ -10,15 +10,19 @@ import { Contract } from '@ethersproject/contracts'
 import AirdropFactoryAbi from 'config/abi/AirdropFactory.json'
 import { formatBigToNum } from '../../../utils/numberFormat'
 import { useNavigate } from 'react-router-dom'
+import StartPublicAirdropCreationPage from '../AirdropPage/Modal/StartPublicAirdropCreationPgae'
+import StartPrivateAirdropCreation from '../AirdropPage/Modal/StartPrivateAirdropCreation'
+import AddAllocationsCreation from './AddAllocationsCreationPage'
 
 
 export default function Createsale({ setAirdropData, airdropData, token, setActive, amount}) {
 
   const { account, library, chainId } = useEthers()
+  const [modal, showModal] = useState(0);
   const navigate = useNavigate()
 
   const { open: openLoadingModal, close: closeLoadingModal } = useModal('LoadingModal')
-
+  console.log(airdropData.tokenAddress, 'airdropData.tokenAddress')
 
   const handleCreateAirdrop = async () => {
     openLoadingModal()
@@ -37,13 +41,14 @@ export default function Createsale({ setAirdropData, airdropData, token, setActi
        gasLimit: 2000000
       })
       await createAirdrop.wait()
-      closeLoadingModal()
       const airdropAddress = await contract.getLastDeployedAirdrop();
       setAirdropData((prevState) => ({
        ...prevState,
        airdropAddress: airdropAddress
       }))
-      navigate(`/airdropper/airdrops/${airdropAddress}`)
+      //navigate(`/airdropper/airdrops/${airdropAddress}`)
+      closeLoadingModal()
+      showModal(2)
       return
     } catch (error) {
       closeLoadingModal()
@@ -68,13 +73,14 @@ export default function Createsale({ setAirdropData, airdropData, token, setActi
         gasLimit: 2000000
       })
       await createAirdrop.wait()
-      closeLoadingModal()
       const airdropAddress = await contract.getLastDeployedAirdrop();
       setAirdropData((prevState) => ({
         ...prevState,
         airdropAddress: airdropAddress
       }))
-      navigate(`/airdropper/airdrops/${airdropAddress}`)
+      //navigate(`/airdropper/airdrops/${airdropAddress}`)
+      closeLoadingModal()
+      showModal(4)
       return
     } catch (error) {
       closeLoadingModal()
@@ -135,12 +141,20 @@ export default function Createsale({ setAirdropData, airdropData, token, setActi
             <span className="font-gilroy font-medium text-sm text-dark-text dark:text-light-text">Go Back</span>
           </button>
 
+          {modal !== 0 &&
+        <div className="fixed z-50  top-0 left-0">
+          {modal === 2 && <AddAllocationsCreation decimals={airdropData.tokenDecimals} airdropAddress={airdropData.airdropAddress} tokenAddress={airdropData.tokenAddress} showModal={showModal} modal={modal}/>}
+          {modal === 3 && <StartPrivateAirdropCreation decimals={airdropData.tokenDecimals} airdropAddress={airdropData.airdropAddress} tokenAddress={airdropData.tokenAddress}  showModal={showModal} modal={modal}/>}
+          {modal === 4 && <StartPublicAirdropCreationPage decimals={airdropData.tokenDecimals} tokenAddress={airdropData.tokenAddress} airdropAddress={airdropData.airdropAddress} showModal={showModal} modal={modal}/>}
+        </div>
+      }
+
           <button
             className="bg-primary-green disabled:bg-light-text text-white font-gilroy font-bold px-8 py-3 rounded-md"
             // disabled={address.length < 5}
             onClick={airdropData.type === 'private' ? handleCreateAirdrop : handleCreatePublicAirdrop}
           >
-            Create Sale
+            Create Airdrop
           </button>
         </div>
       </div>

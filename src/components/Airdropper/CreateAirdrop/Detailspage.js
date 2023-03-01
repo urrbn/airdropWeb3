@@ -8,21 +8,20 @@ import BackArrowSVG from '../../../svgs/back_arrow'
 import LinkedinSVG from '../../../svgs/Socials/linkedin'
 import { ThemeContext } from '../../../context/ThemeContext/ThemeProvider'
 import GithubSVG from '../../../svgs/Socials/github'
+import { isValidUrl } from '../../../utils/numberFormat'
 
 export default function Detailspage({ setActive, setAirdropData, airdropData  }) {
   const [profileImage, setProfileImage] = useState(null)
+  const [valid, setValid] = useState(false);
   const { theme } = useContext(ThemeContext)
-  const [description, setDescription] = useState('')
-  const [tags, setTags] = useState('')
-  const [twitter, setTwitter] = useState('')
-  const [website, setWebsite] = useState('')
-  const [linkedin, setLinkedin] = useState('')
-  const [github, setGithub] = useState('')
+  
 
   const handleSubmit = () => {
+    //if(isValidUrl(airdropData.image) && isValidUrl(airdropData.website))
     setActive('Preview')
   }
-
+ 
+  console.log(airdropData, 'airdropdata')
 
   return (
     <div className="w-full p-5 md:p-9 bg-white dark:bg-dark-1 rounded-[10px] ">

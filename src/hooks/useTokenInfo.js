@@ -1,11 +1,11 @@
 import { Contract, ethers } from 'ethers'
-import ERC20Abi from 'constants/abi/ERC20.json'
+import ERCAbi from 'config/abi/ERC20.json';
 
 import { useCalls } from '@usedapp/core'
 
 function useTokenInfo(tokenAddress) {
   const partialCall = tokenAddress && {
-    contract: new Contract(tokenAddress, ERC20Abi),
+    contract: new Contract(tokenAddress, ERCAbi),
     address: tokenAddress,
     args: [],
   }

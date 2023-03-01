@@ -9,6 +9,9 @@ import StartPrivateAirdrop from '../../components/Airdropper/AirdropPage/Modal/S
 import StartPublicAirdrop from '../../components/Airdropper/AirdropPage/Modal/StartPublicAirdrop'
 import { getAirdropInfos, getAirdropStatus } from 'utils/getAirdropList'
 import { useEthers} from '@usedapp/core'
+import useAirdropOwner from 'hooks/useAirdropOwner'
+import useTokenInfo from 'hooks/useTokenInfo'
+
 
 
 export default function PoolPage() {
@@ -21,7 +24,25 @@ export default function PoolPage() {
   const [ready, setReady] = useState(false)
   const navigate = useNavigate();
   const { active, account, library, chainId } = useEthers();
+  
 
+  const owner = useAirdropOwner(id)
+
+
+  useEffect(() => {
+    console.log(owner, 'airdropInfoojjjo')
+    if (typeof owner == "undefined") {
+      return
+    }
+
+    
+    
+    if(active && (account == owner)){
+      setAdminMode(true)
+    }
+    
+    
+  }, [owner])
 
   useEffect(() => {
     let activated = true
@@ -29,8 +50,8 @@ export default function PoolPage() {
       setAsset(false)
       try {
         const info = await getAirdropInfos([id])
+        console.log(info, 'totalAmountto')
         const statuses = await getAirdropStatus([id])
-        const owner = info.data[0].owner;
         const isStarted = statuses.data[0].airDropStarted;
         const isEmpty = statuses.data[0].isEmpty;
         const isCancelled = statuses.data[0].airdropCancelled;
@@ -40,11 +61,11 @@ export default function PoolPage() {
         console.log(isCancelled, 'isCancelled')
         console.log(statuses.data[0], 'statuses.data[0]')
 
-        if(active){
-          if(owner === account){
-            setAdminMode(true)
-          }
-        }
+        // if(active){
+        //   if(owner === account){
+        //     setAdminMode(true)
+        //   }
+        // }
 
         if(isStarted === true && (!isEmpty && !isCancelled)){
           setStatus('Live')
@@ -98,7 +119,7 @@ export default function PoolPage() {
         </div>
       }
       <BaseLayout page_name={'Airdrops'} title={asset.name} subpage admin={adminMode} setAdminMode={setAdminMode}>
-        <AirdropPageBase status={status} airdrop={asset} showModal={showModal} admin={adminMode} />
+        <AirdropPageBase status={status} airdrop={asset} showModal={showModal} admin={adminMode} owner={owner}/>
       </BaseLayout>
     </div>
     ) : (

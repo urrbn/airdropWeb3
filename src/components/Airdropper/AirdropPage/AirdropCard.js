@@ -13,7 +13,7 @@ export default function AirdropCard({ data , status}) {
     let totalDistributed = Number(formatUnits(data.info.totalAmountDistributed, 18))
     let remaining = (totalAmount - totalDistributed )
     let filledPerc = (remaining/totalAmount)*100
-    debugger
+    
     console.log(totalAmount, 'totalAmount')
     if(totalAmount === 0){
         filledPerc = 'NotStartedYet'

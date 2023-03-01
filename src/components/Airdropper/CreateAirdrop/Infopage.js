@@ -15,6 +15,7 @@ import { getTokenBalance } from '../../../utils/getTokenBalance'
 import { BigNumber } from 'ethers'
 
 
+
 export default function Infopage({ setActive, setAirdropData, airdropData }) {
   //const [address, setAddress] = React.useState('')
   //const [popup, showPopup] = React.useState(false)
@@ -42,6 +43,7 @@ export default function Infopage({ setActive, setAirdropData, airdropData }) {
     setEnable(false)
     setVisible(false)
     setAddress(e.target.value)
+    console.log(isAddress(e.target.value), 'isAddress(e.target.value)')
     if (isAddress(e.target.value)) {
       openLoadingModal()
       const tokenInfo = await getTokenInfo(e.target.value)
@@ -92,7 +94,7 @@ export default function Infopage({ setActive, setAirdropData, airdropData }) {
       />
 
       <PreviewHeader heading={'Token address Details'} />
-      {address.length > 4 && (
+      {visible && (
         <div className="mt-5">
          <>
                   <PreviewDetails name="Name" value={airdropData.tokenName} />
@@ -166,7 +168,7 @@ export default function Infopage({ setActive, setAirdropData, airdropData }) {
 
           <button
             className="bg-primary-green disabled:bg-dim-text disabled:dark:bg-dim-text-dark text-white font-gilroy font-bold px-8 py-3 rounded-md"
-            disabled={address.length < 5}
+            disabled={!enable}
             onClick={() => setActive('Project Details')}
           >
             Next

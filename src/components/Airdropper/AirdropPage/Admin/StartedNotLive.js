@@ -7,21 +7,22 @@ import { formatBigToNum } from '../../../../utils/numberFormat'
 import { useModal } from 'react-simple-modal-provider'
 import PublicAirdropAbi from 'config/abi/PublicAirdropAbi.json';
 
-const Live = ({whitelist_address, showModal}) => {
+const Live = ({whitelist_address, showModal, status, handleStatusChange}) => {
   const { account, library, chainId } = useEthers()
   const { id } = useParams()
 
   const { open: openLoadingModal, close: closeLoadingModal } = useModal('LoadingModal')
   
-
+  
   const handleCancelPublicAirdrop = async () => {
     openLoadingModal()
     const contract = new Contract(id, PublicAirdropAbi, library.getSigner())
     try {
       const cancelAirdrop = await contract.cancelAirdrop()
       await cancelAirdrop.wait()
-      closeLoadingModal()
       //navigate(`/locked-assets`)
+      closeLoadingModal()
+      handleStatusChange('Ended')
       return
     } catch (error) {
       closeLoadingModal()
