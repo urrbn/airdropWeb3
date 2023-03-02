@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import Createsale from './Createsale'
 import Detailspage from './Detailspage'
 import Infopage from './Infopage'
-import StartPublicAirdrop from '../AirdropPage/Modal/StartPublicAirdrop'
-import StartPrivateAirdrop from '../AirdropPage/Modal/StartPrivateAirdrop'
+
 
 const panel_items = [
     {
@@ -17,10 +16,6 @@ const panel_items = [
     {
         id: 3,
         name: 'Preview',
-    }, 
-    {
-        id: 4,
-        name: 'Admin Panel',
     }
 ]
 
