@@ -17,7 +17,7 @@ export default function Detailspage({ setActive, setAirdropData, airdropData  })
   
 
   const handleSubmit = () => {
-    //if(isValidUrl(airdropData.image) && isValidUrl(airdropData.website))
+    if(isValidUrl(airdropData.image) && isValidUrl(airdropData.website))
     setActive('Preview')
   }
  
@@ -34,7 +34,7 @@ export default function Detailspage({ setActive, setAirdropData, airdropData  })
                   <div className="flex items-center justify-between bg-[#FAF8F5] dark:bg-dark-2 px-5 py-4 rounded-md w-[100%]">
                     <input
                       type="text"
-                      placeholder="Input Valid image url here"
+                      placeholder="Ex: https://..."
                       className="w-[100%] font-bold text-dark-text dark:text-light-text"
                       value={airdropData.image}
                       onChange={(e) =>
@@ -104,7 +104,7 @@ export default function Detailspage({ setActive, setAirdropData, airdropData  })
                 website: e.target.value,
               }))
             }
-            placeholder="Enter website URL"
+            placeholder="Ex: https://..."
           />
           <DribbleSVG className="w-5 h-5 fill-dark-text dark:fill-light-text" />
         </div>
@@ -122,7 +122,7 @@ export default function Detailspage({ setActive, setAirdropData, airdropData  })
                 twitter: e.target.value,
               }))
             }
-            placeholder="Enter your Twitter"
+            placeholder="Ex: https://twitter.com/.."
           />
           <TwitterSVG className="w-5 h-5 fill-dark-text dark:fill-light-text" />
         </div>
@@ -141,7 +141,7 @@ export default function Detailspage({ setActive, setAirdropData, airdropData  })
                 linkedin: e.target.value,
               }))
             }
-            placeholder="Enter your Linkedin"
+            placeholder="Ex: https://linkedin.com/.."
           />
           <LinkedinSVG
             className="w-5 h-5"
@@ -163,7 +163,7 @@ export default function Detailspage({ setActive, setAirdropData, airdropData  })
                 github: e.target.value,
               }))
             }
-            placeholder="Enter your Github"
+            placeholder="Ex: https://github.com/.."
           />
           <GithubSVG
             className="w-5 h-5"
