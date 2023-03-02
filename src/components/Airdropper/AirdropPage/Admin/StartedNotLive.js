@@ -7,7 +7,7 @@ import { formatBigToNum } from '../../../../utils/numberFormat'
 import { useModal } from 'react-simple-modal-provider'
 import PublicAirdropAbi from 'config/abi/PublicAirdropAbi.json';
 
-const Live = ({whitelist_address, showModal, status, handleStatusChange}) => {
+const Live = ({whitelist_address, amount, handleStatusChange}) => {
   const { account, library, chainId } = useEthers()
   const { id } = useParams()
 
@@ -32,6 +32,7 @@ const Live = ({whitelist_address, showModal, status, handleStatusChange}) => {
   return (
     <div className='flex flex-col'>
         <PreviewDetails name={"Address Whitelisted"} value={whitelist_address}/>
+        <PreviewDetails name={"Amount To Airdrop"} value={amount.toLocaleString()}/>
         <div className='mt-10'>
             <button className={`w-full bg-[#EB5757] bg-opacity-10 rounded-md text-[#EB5757] font-bold py-4`}
               onClick={() => {handleCancelPublicAirdrop()}}>

@@ -9,17 +9,25 @@ import { Contract } from '@ethersproject/contracts';
 import { formatUnits } from 'ethers/lib/utils';
 import PrivateAirdropAbi from 'config/abi/PrivateAirdropAbi.json';
 import { getUserParticipationPrivate, getUserParticipationPublic } from 'utils/getAirdropList'
-import {useAirdropIsWL, useAirdropGetParticipation, useAirdropIsClaimed, useAirdropPortionSize} from 'hooks/useAirdropInfo'
-
+import {useAirdropIsWL, useAirdropGetParticipation, useAirdropIsClaimed} from 'hooks/useAirdropInfo'
+import {useAirdropClaimSize, useAirdropNumberOfClaims} from 'hooks/useAirdropNumberOfClaimsAndClaimSize.js'
 
 
 export default function UserPanel({handleSetRemaining, is_private, amount, icon, filled_percent, ends_on, status, whitelist_address, whitelisted , remaining}) {
     const { id } = useParams()
-    const [isAirdropClaimed, setIsAirdropClaimed] = useState();
+    const [isAirdropClaimed, setIsAirdropClaimed] = useState(false);
+    const [remainingAllocations, setRemainingAllocations] = useState();
     const [isWL, setIsWL] = useState();
     const [allocation, setAllocation] = useState();
     const {library, chainId, account, active } = useEthers()   
     const { open: openLoadingModal, close: closeLoadingModal } = useModal('LoadingModal')
+    
+    // const claimSize = useAirdropClaimSize(id)
+    // const numberOfClaims = useAirdropNumberOfClaims(id)
+
+     console.log(remaining, 'remainng')
+    // console.log(numberOfClaims, 'numberOfClaims')
+    
     
 
     
@@ -58,6 +66,9 @@ export default function UserPanel({handleSetRemaining, is_private, amount, icon,
           setIsAirdropClaimed(true)
           debugger
           handleSetRemaining(allocation)
+          if(!is_private){
+            setRemainingAllocations(amount/allocation.toNumber())
+          }
           closeLoadingModal()
           return
         } catch (error) {
@@ -80,8 +91,17 @@ export default function UserPanel({handleSetRemaining, is_private, amount, icon,
                     <span className="text-dark-text dark:text-light-text text-2xl font-bold">{amount.toLocaleString()}</span>
                 </div>
             </div>
+
+            {(remainingAllocations !== undefined && !is_private) && <div className="mt-7 flex justify-between">
+                <span className='font-medium text-sm text-gray dark:text-gray-dark'>
+                    Remaining Allocations
+                </span>
+                <span className='font-bold text-sm text-dark-text dark:text-light-text'>
+                    {remainingAllocations.toLocaleString()} 
+                </span>
+            </div>}
             
-            {(allocation !== undefined) && <div className="mt-7 flex justify-between">
+            {(allocation !== undefined && account !== undefined) && <div className="mt-7 flex justify-between">
                 <span className='font-medium text-sm text-gray dark:text-gray-dark'>
                     Your Allocation
                 </span>
@@ -129,7 +149,8 @@ export default function UserPanel({handleSetRemaining, is_private, amount, icon,
 
             
             <div className="flex flex-col mt-10">
-                {(!isWL && is_private) && <span className="text-sm font-medium mb-5 text-[red] text-center">Your Wallet is not Whitelisted</span>}
+                {account === undefined && <span className="text-sm font-medium mb-5 text-[red] text-center">Connect your Wallet</span>}
+                {(!isWL && is_private && account !== undefined) && <span className="text-sm font-medium mb-5 text-[red] text-center">Your Wallet is not Whitelisted</span>}
                 {account !== undefined && ((isWL && is_private) || (!is_private)) && (isAirdropClaimed !== true) && <button className={`w-full ${( (isWL && is_private) || (isAirdropClaimed !== true && !is_private && status !== 'Timed' && status !== 'Ended'))? "bg-primary-green" : "bg-primary-green bg-opacity-50 dark:bg-dim-text-dark"} rounded-md text-white font-bold py-4`}
                     disabled={status === 'Timed' || status === 'Ended'}
                     onClick={handleClaim}>

@@ -27,6 +27,8 @@ const AdminPanel = ({
     }
 
     useEffect(() => {
+
+        debugger
    
         if (typeof isCancelled == "undefined") {
           return
@@ -53,9 +55,12 @@ const AdminPanel = ({
         }
     
         
-    }, [isCancelled, isStarted, isEmpty])
+    }, [isCancelled, isStarted, isEmpty, id])
 
-    console.log(status)
+    console.log(status, 'hhhhstatus')
+    console.log(isStarted, 'isStarted')
+    console.log(isEmpty, 'isEmpty')
+    console.log(isCancelled, 'isCancelled')
 
     return (
         <div className="hidden md:block px-9 pb-9 bg-white dark:bg-dark-1 rounded-[20px]">
@@ -78,10 +83,10 @@ const AdminPanel = ({
                     }
                 </div> */}
             <div className='mt-5'>
-                {status === "Ended" && <Ended whitelist_address={whitelist_address} amount={0} allocated={allocated} participants={participants} status={status} showModal={showModal}/>}
-                {status === "Live" && <Live whitelist_address={whitelist_address} showModal={showModal} status={status} handleStatusChange={handleStatusChange}/>}
-                {(status === "Timed" && Private) && <NotStartedPrivate airdrop={airdrop} whitelist_address={whitelist_address} showModal={showModal}/>}
-                {(status === "Timed" && !Private) && <NotStartedPublic showModal={showModal}/>}
+                {status === 'Ended' && <Ended whitelist_address={whitelist_address} amount={0} allocated={allocated} participants={participants} status={status} showModal={showModal}/>}
+                {status === 'Live' && <Live whitelist_address={whitelist_address} amount={amount}  status={status} handleStatusChange={handleStatusChange}/>}
+                {(status === 'Timed' && Private) && <NotStartedPrivate airdrop={airdrop} whitelist_address={whitelist_address} showModal={showModal}/>}
+                {(status === 'Timed' && !Private) && <NotStartedPublic showModal={showModal}/>}
                 </div>   
         </div>
     )

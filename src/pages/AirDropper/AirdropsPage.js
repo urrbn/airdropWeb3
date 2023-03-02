@@ -30,14 +30,14 @@ export default function PoolPage() {
 
 
   useEffect(() => {
-    console.log(owner, 'airdropInfoojjjo')
+    
     if (typeof owner == "undefined") {
       return
     }
 
     
     
-    if(active && (account == owner)){
+    if(active && (account == owner[0])){
       setAdminMode(true)
     }
     
@@ -106,7 +106,7 @@ export default function PoolPage() {
     }
   }, [id, navigate])
 
-
+  
   return (
     ready ? (
     <div className='w-full'>

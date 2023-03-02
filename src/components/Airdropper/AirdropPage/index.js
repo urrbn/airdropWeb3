@@ -20,6 +20,8 @@ export default function AirdropPageBase({ status , airdrop, showModal, admin }) 
   const [filledPerc, setFilledPerc] = useState(0)
   const { id } = useParams()
   const airdropInfo = useAirdropInfo(id)
+  
+  console.log(airdropInfo, 'airdropInfo')
 
   function handleSetRemaining(allocation){
     let filledPercNum = ((remaining - allocation)/totalAmount)*100
@@ -41,6 +43,10 @@ export default function AirdropPageBase({ status , airdrop, showModal, admin }) 
     setTotalDistributed(totalDistributedNumber)
     setRemaining(remainingNum)
     setFilledPerc(filledPercNum)
+    console.log(totalAmountNumber, 'totalAmountNumber')
+    console.log(totalDistributedNumber, 'totalDistributedNumber')
+    console.log(remainingNum, 'remainingNum')
+    console.log(filledPercNum, 'filledPercNum')
 
 
     
@@ -77,7 +83,7 @@ export default function AirdropPageBase({ status , airdrop, showModal, admin }) 
   }, [airdropInfo])
   
 
-    
+  console.log(remaining, 'remainng page base')
   
 
   return (

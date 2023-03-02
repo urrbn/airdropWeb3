@@ -103,7 +103,7 @@ export default function StartPrivateAirdropCreation({ decimals, airdropAddress, 
     if(isChecked){
         setDate(Math.floor(Date.now() / 1000) + 60)
     }  
-
+    debugger
     if(date !== 'undefined'){
       try {
         openLoadingModal()

@@ -35,10 +35,10 @@ export default function Info({ icon, name, is_private, tags, admin}) {
 
       {admin ? 
       <div className='mb-2'>
-        <button className='flex rounded-md bg-primary-green bg-opacity-10 text-primary-green font-bold font-gilroy py-2.5 px-6 text-[16px] text-opacity-70'>
+        {/* <button className='flex rounded-md bg-primary-green bg-opacity-10 text-primary-green font-bold font-gilroy py-2.5 px-6 text-[16px] text-opacity-70'>
             <EditSVG className="mr-2"/> 
             Edit
-        </button>
+        </button> */}
       </div>
       :
       <div className="flex items-center gap-5">
