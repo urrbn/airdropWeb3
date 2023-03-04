@@ -3,8 +3,9 @@ import DribbleSVG from '../../../svgs/Socials/dribble'
 import Options from '../../LockedAsset/Preview/Subcomponents/Options'
 import TwitterSVG from '../../../svgs/Socials/twitter'
 import EditSVG from 'svgs/edit'
+import { Link } from 'react-router-dom'
 
-export default function Info({ icon, name, is_private, tags, admin}) {
+export default function Info({ icon, name, is_private, tags, admin, airdrop }) {
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center">
@@ -33,19 +34,23 @@ export default function Info({ icon, name, is_private, tags, admin}) {
         </div>
       </div>
 
-      {admin ? 
-      <div className='mb-2'>
-        {/* <button className='flex rounded-md bg-primary-green bg-opacity-10 text-primary-green font-bold font-gilroy py-2.5 px-6 text-[16px] text-opacity-70'>
+      {admin ?
+        <div className='mb-2'>
+          {/* <button className='flex rounded-md bg-primary-green bg-opacity-10 text-primary-green font-bold font-gilroy py-2.5 px-6 text-[16px] text-opacity-70'>
             <EditSVG className="mr-2"/> 
             Edit
         </button> */}
-      </div>
-      :
-      <div className="flex items-center gap-5">
-        <TwitterSVG className="fill-dark-text dark:fill-light-text hidden md:block" />
-        <DribbleSVG className="fill-dark-text dark:fill-light-text hidden md:block" />
-        <Options width={'w-7'} height={'h-7'} color={'[#FAF8F5]'} dark_color={'dark-2'} />
-      </div>
+        </div>
+        :
+        <div className="flex items-center gap-5">
+          <a href={airdrop.info.description[4]} target="_blank">
+            <TwitterSVG className="fill-dark-text dark:fill-light-text hidden md:block" />
+          </a>
+          <a href={airdrop.info.description[4]} target="_blank">
+            <DribbleSVG className="fill-dark-text dark:fill-light-text hidden md:block" />
+          </a>
+          <Options width={'w-7'} height={'h-7'} color={'[#FAF8F5]'} dark_color={'dark-2'} />
+        </div>
       }
 
     </div>

@@ -4,33 +4,33 @@ import 'pure-react-carousel/dist/react-carousel.es.css'
 import SlideContent from './SlideContent'
 
 const slide_images_mobile = [
-  '/images/slider/banner1.svg',
-  '/images/slider/banner2.svg',
-  '/images/slider/banner3.svg',
+  '/images/slider/banner1.jpeg',
+  '/images/slider/banner2.jpeg',
+  '/images/slider/banner3.jpeg',
 
-  '/images/slider/banner1.svg',
-  '/images/slider/banner2.svg',
-  '/images/slider/banner3.svg',
-  '/images/slider/banner1.svg',
-  '/images/slider/banner2.svg',
-  '/images/slider/banner3.svg',
+  '/images/slider/banner1.jpeg',
+  '/images/slider/banner2.jpeg',
+  '/images/slider/banner3.jpeg',
+  '/images/slider/banner1.jpeg',
+  '/images/slider/banner2.jpeg',
+  '/images/slider/banner3.jpeg',
 ]
 
 const slide_images = [
   {
-    img1: '/images/slider/banner1.svg',
-    img2: '/images/slider/banner2.svg',
-    img3: '/images/slider/banner3.svg',
+    img1: '/images/slider/banner1.jpeg',
+    img2: '/images/slider/banner2.jpeg',
+    img3: '/images/slider/banner3.jpeg',
   },
   {
-    img1: '/images/slider/banner1.svg',
-    img2: '/images/slider/banner2.svg',
-    img3: '/images/slider/banner3.svg',
+    img1: '/images/slider/banner1.jpeg',
+    img2: '/images/slider/banner2.jpeg',
+    img3: '/images/slider/banner3.jpeg',
   },
   {
-    img1: '/images/slider/banner1.svg',
-    img2: '/images/slider/banner2.svg',
-    img3: '/images/slider/banner3.svg',
+    img1: '/images/slider/banner1.jpeg',
+    img2: '/images/slider/banner2.jpeg',
+    img3: '/images/slider/banner3.jpeg',
   },
 ]
 

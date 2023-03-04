@@ -43,7 +43,7 @@ export default function Airdrops() {
           const infoTimed = await getAirdropInfos(timed)
           const infoLive = await getAirdropInfos(live)
           const infoEnded = await getAirdropInfos(ended)
-          
+
           if (infoTimed.success) {
             setTimedList(infoTimed.data)
           }
@@ -70,7 +70,7 @@ export default function Airdrops() {
             title_img={<AirplaneSVG className="md:hidden fill-dim-text" />}
             page_name={'Airdrops'}
             page_description={'Airdrop to multiple users in few clicks.'}>
-            <HomeLayout tabs={Tabs} activeTab={activeTab} setActiveTab={setActiveTab}>
+            <HomeLayout airdrop tabs={Tabs} activeTab={activeTab} setActiveTab={setActiveTab}>
                 <AirdropsBase timedList={timedList} endedList={endedList} liveList={liveList} activeTab={activeTab}  />
             </HomeLayout>
         </BaseLayout>

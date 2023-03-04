@@ -11,10 +11,11 @@ import TokenLocker from '../pages/Locker/TokenLocker'
 import Airdrops from '../pages/AirDropper/Airdrops'
 import AirdropsPage from "../pages/AirDropper/AirdropsPage"
 import CreateAirdrop from '../pages/AirDropper/CreateAirdrop'
+import { Navigate } from 'react-router-dom'
 
 export default function WebRouter() {
   let routes = useRoutes([
-    { path: '/', element: <Locker /> },
+    { path: '/', element: <Navigate to="/airdropper/airdrops" replace /> }, // Redirect to /airdropper/airdrops
     { path: '/locked-assets', element: <Locker /> },
     { path: '/locked-assets/token/:id', element: <LockedAsset type={'token'} /> },
     { path: '/locked-assets/lp-token/:id', element: <LockedAsset type={'lp-token'} /> },
@@ -30,3 +31,4 @@ export default function WebRouter() {
   ])
   return routes
 }
+

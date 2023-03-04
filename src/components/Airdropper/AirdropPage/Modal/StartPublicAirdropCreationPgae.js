@@ -117,7 +117,7 @@ export default function StartPublicAirdropCreationPage({ decimals, tokenAddress,
 
 
   return (
-    <div className={`w-screen h-screen flex backdrop-blur-[7px] flex-col justify-center items-center bg-[#F2F3F5] dark:bg-dark dark:bg-opacity-40 bg-opacity-40`}>
+    <div className={`w-full flex flex-col items-center bg-[#F2F3F5] dark:bg-dark bg-opacity-40`}>
       <div className="w-[90%] max-w-[420px] rounded-[10px] px-9 py-7 bg-white dark:bg-dark-1">
         <div className="flex justify-between items-center  ">
           <span className="text-dark-text dark:text-light-text font-gilroy font-semibold text-lg">Set Time</span>
@@ -149,8 +149,8 @@ export default function StartPublicAirdropCreationPage({ decimals, tokenAddress,
                   changeState={setNumberOfClaims}
                   placeholder={""}
               />
-              </div>
-              <div className='mt-10 w-full flex justify-end'>
+          </div>
+              <div className='mt-10 w-full flex'>
                   <InputField 
                       heading={"Size of Claims"}
                       value={claimSize}

@@ -108,7 +108,7 @@ export default function BaseLayout({
                 subpage={subpage}
                 page_name={page_name}
                 showModal={showModal}
-                admin={admin}
+                admin={false}
                 setAdminMode={setAdminMode}
               />
             </div>

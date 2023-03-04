@@ -8,7 +8,7 @@ export default function InputField({
   changeState,
 }) {
   return (
-    <div className="w-full lg:w-[90%]">
+    <div className="w-full lg:w-[100%]">
       <div className="flex items-center">
         <span className="font-gilroy font-semibold text-gray dark:text-gray-dark">
             {heading}

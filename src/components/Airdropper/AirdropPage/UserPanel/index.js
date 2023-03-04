@@ -64,7 +64,7 @@ export default function UserPanel({handleSetRemaining, is_private, amount, icon,
           const claim = await contract.claim()
           await claim.wait()
           setIsAirdropClaimed(true)
-          debugger
+          //debugger
           handleSetRemaining(allocation)
           if(!is_private){
             setRemainingAllocations(amount/allocation.toNumber())

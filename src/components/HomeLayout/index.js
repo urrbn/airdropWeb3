@@ -14,6 +14,7 @@ export default function HomeLayout({
   tabs,
   activeTab,
   setActiveTab,
+  airdrop
 }) {
   //   const [sortFilter, setSortFilter] = useState('')
   const [on, setOn] = useState(true)
@@ -32,9 +33,9 @@ export default function HomeLayout({
           <Carousel />
         </div>
 
-        <div className="w-full flex h-11 justify-between">
+        <div className="w-full flex mt-5 md:mt-0 flex-col md:flex-row gap-y-3 md:h-11 justify-between">
           {tabs && (
-            <div className="flex items-center p-1 bg-[#F5F1EB] dark:bg-dark-3">
+            <div className="flex justify-around md:justify-start items-center p-1 bg-[#F5F1EB] dark:bg-dark-3">
               {tabs.map((tab) => (
                 <Tab
                   key={tab.id}
@@ -50,7 +51,10 @@ export default function HomeLayout({
           {!tabs && <ViewSwitch cardFormat={cardFormat} setCardFormat={setCardFormat} />}
           {!tabs && <ItemSwitch itemSelected={itemSelected} setItemSelected={setItemSelected} />}
           <div className="px-5 py-3 rounded-md bg-white dark:bg-dark-1 flex justify-center items-center">
-            <span className="text-gray dark:text-gray-dark font-gilroy font-semibold text-sm">My Locks</span>
+            <span className="text-gray dark:text-gray-dark font-gilroy font-semibold text-sm">
+              {airdrop? 'Whitelisted': 'My Locks'}
+              
+            </span>
 
             <label htmlFor="lock-toggle" className="inline-flex relative items-center cursor-pointer ml-[10px]">
               <input
@@ -75,7 +79,7 @@ export default function HomeLayout({
           <div className="hidden md:flex items-center justify-between border-2 border-white dark:border-dark-1 bg-[#F5F1EB] dark:bg-dark-3 rounded-md px-5 py-3">
             <input
               className="bg-transparent placeholder:text-dim-text dark:placeholder:text-dim-text-dark focus:outline-none w-60"
-              placeholder="Search token or liquidity pair"
+              placeholder={airdrop? "Search Airdrops" :"Search token or liquidity pair"}
             />
 
             <SearchSVG className="fill-dark-text dark:fill-light-text" />

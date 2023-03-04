@@ -44,7 +44,7 @@ export const sitemap = [
       {
         id: 1,
         name: 'Locked Assets',
-        link: '/',
+        link: '/locked-assets',
       },
       {
         id: 2,

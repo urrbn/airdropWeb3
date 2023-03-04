@@ -22,13 +22,13 @@ const AdminPanel = ({
     const [status, setStatus] = useState('');
 
     function handleStatusChange(newStatus) {
-        debugger
+        //debugger
         setStatus(newStatus);
     }
 
     useEffect(() => {
 
-        debugger
+        //debugger
    
         if (typeof isCancelled == "undefined") {
           return

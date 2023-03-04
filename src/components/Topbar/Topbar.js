@@ -71,7 +71,7 @@ export default function Topbar({
         )}
       </div>
       <div className='flex items-center'>
-        {
+        {/* {
           admin ? (
           <div className="hidden md:flex mr-7 py-4 px-5 rounded-md bg-white dark:bg-dark-1">
             <span className="font-gilroy mr-[10px] font-medium text-dark-text dark:text-light-text text-base">
@@ -108,7 +108,7 @@ export default function Topbar({
             </label>
           </div>
           )
-        }
+        } */}
         <ConnectButton />
       </div>
     </div>

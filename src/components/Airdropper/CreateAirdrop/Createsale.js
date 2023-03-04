@@ -5,7 +5,7 @@ import PreviewDetails from '../../Common/PreviewDetails'
 import { useModal } from 'react-simple-modal-provider'
 import { AIRDROP_FACTORY_ADDRESS } from '../../../config/constants/address'
 import { ethers } from 'ethers'
-import { useEthers} from '@usedapp/core'
+import { useEthers } from '@usedapp/core'
 import { Contract } from '@ethersproject/contracts'
 import AirdropFactoryAbi from 'config/abi/AirdropFactory.json'
 import { formatBigToNum } from '../../../utils/numberFormat'
@@ -15,7 +15,7 @@ import StartPrivateAirdropCreation from '../AirdropPage/Modal/StartPrivateAirdro
 import AddAllocationsCreation from './AddAllocationsCreationPage'
 
 
-export default function Createsale({ setAirdropData, airdropData, token, setActive, amount}) {
+export default function Createsale({ setAirdropData, airdropData, token, setActive, amount }) {
 
   const { account, library, chainId } = useEthers()
   const [modal, showModal] = useState(0);
@@ -28,23 +28,23 @@ export default function Createsale({ setAirdropData, airdropData, token, setActi
     openLoadingModal()
     const contract = new Contract('0xFEB0519C0eC588300146EA30133209aABD069432', AirdropFactoryAbi, library.getSigner())
     try {
-      const createAirdrop = await contract.deployAirdrop(airdropData.tokenAddress, 
-       [airdropData.image, 
+      const createAirdrop = await contract.deployAirdrop(airdropData.tokenAddress,
+        [airdropData.image,
         airdropData.description,
         airdropData.tags,
         airdropData.website,
         airdropData.twitter,
         airdropData.linkedin,
         airdropData.github,
-        airdropData.name],{
-       value: 0,
-       gasLimit: 2000000
+        airdropData.name], {
+        value: 0,
+        gasLimit: 2000000
       })
       await createAirdrop.wait()
       const airdropAddress = await contract.getLastDeployedAirdrop();
       setAirdropData((prevState) => ({
-       ...prevState,
-       airdropAddress: airdropAddress
+        ...prevState,
+        airdropAddress: airdropAddress
       }))
       //navigate(`/airdropper/airdrops/${airdropAddress}`)
       closeLoadingModal()
@@ -60,15 +60,15 @@ export default function Createsale({ setAirdropData, airdropData, token, setActi
     openLoadingModal()
     const contract = new Contract('0xFEB0519C0eC588300146EA30133209aABD069432', AirdropFactoryAbi, library.getSigner())
     try {
-      const createAirdrop = await contract.deployPublicAirdrop(airdropData.tokenAddress, 
-        [airdropData.image, 
-         airdropData.description,
-         airdropData.tags,
-         airdropData.website,
-         airdropData.twitter,
-         airdropData.linkedin,
-         airdropData.github,
-         airdropData.name],{
+      const createAirdrop = await contract.deployPublicAirdrop(airdropData.tokenAddress,
+        [airdropData.image,
+        airdropData.description,
+        airdropData.tags,
+        airdropData.website,
+        airdropData.twitter,
+        airdropData.linkedin,
+        airdropData.github,
+        airdropData.name], {
         value: 0,
         gasLimit: 2000000
       })
@@ -87,10 +87,19 @@ export default function Createsale({ setAirdropData, airdropData, token, setActi
       return false
     }
   }
-  
+
 
   return (
     <div className="">
+      {modal !== 0 &&
+        <div className="fixed backdrop-blur-[7px] w-full h-full flex justify-center  z-50  top-0 left-0">
+          <div className='h-screen w-full flex items-center'>
+            {modal === 2 && <AddAllocationsCreation decimals={airdropData.tokenDecimals} airdropAddress={airdropData.airdropAddress} tokenAddress={airdropData.tokenAddress} showModal={showModal} modal={modal} />}
+            {modal === 3 && <StartPrivateAirdropCreation decimals={airdropData.tokenDecimals} airdropAddress={airdropData.airdropAddress} tokenAddress={airdropData.tokenAddress} showModal={showModal} modal={modal} />}
+            {modal === 4 && <StartPublicAirdropCreationPage decimals={airdropData.tokenDecimals} tokenAddress={airdropData.tokenAddress} airdropAddress={airdropData.airdropAddress} showModal={showModal} modal={modal} />}
+          </div>
+        </div>
+      }
       {/* <div className="flex items-center">
         <img src={token.icon} alt={token.name} className="w-[54px] h-[54px]" />
 
@@ -119,7 +128,7 @@ export default function Createsale({ setAirdropData, airdropData, token, setActi
       <PreviewDetails name="Twitter" value={airdropData.twitter} />
       <PreviewDetails name="Linkedin" value={airdropData.linkedin} />
       <PreviewDetails name="Github" value={airdropData.github} />
-      
+
 
       <PreviewHeader heading={'Token address Details'} />
 
@@ -130,7 +139,7 @@ export default function Createsale({ setAirdropData, airdropData, token, setActi
         name="Total Supply"
         value={`${formatBigToNum(airdropData.tokenSupply, airdropData.tokenDecimals)} ${airdropData.tokenSymbol}`}
       />
- 
+
       <div className="mt-10">
         <div className="flex justify-end items-center mb-10">
           <button
@@ -141,13 +150,7 @@ export default function Createsale({ setAirdropData, airdropData, token, setActi
             <span className="font-gilroy font-medium text-sm text-dark-text dark:text-light-text">Go Back</span>
           </button>
 
-          {modal !== 0 &&
-        <div className="fixed z-50  top-0 left-0">
-          {modal === 2 && <AddAllocationsCreation decimals={airdropData.tokenDecimals} airdropAddress={airdropData.airdropAddress} tokenAddress={airdropData.tokenAddress} showModal={showModal} modal={modal}/>}
-          {modal === 3 && <StartPrivateAirdropCreation decimals={airdropData.tokenDecimals} airdropAddress={airdropData.airdropAddress} tokenAddress={airdropData.tokenAddress}  showModal={showModal} modal={modal}/>}
-          {modal === 4 && <StartPublicAirdropCreationPage decimals={airdropData.tokenDecimals} tokenAddress={airdropData.tokenAddress} airdropAddress={airdropData.airdropAddress} showModal={showModal} modal={modal}/>}
-        </div>
-      }
+
 
           <button
             className="bg-primary-green disabled:bg-light-text text-white font-gilroy font-bold px-8 py-3 rounded-md"

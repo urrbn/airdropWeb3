@@ -20,7 +20,7 @@ export default function AirdropPageBase({ status , airdrop, showModal, admin }) 
   const [filledPerc, setFilledPerc] = useState(0)
   const { id } = useParams()
   const airdropInfo = useAirdropInfo(id)
-  
+
   console.log(airdropInfo, 'airdropInfo')
 
   function handleSetRemaining(allocation){
@@ -95,6 +95,7 @@ export default function AirdropPageBase({ status , airdrop, showModal, admin }) 
               name={airdrop.info.description[7]}
               icon={airdrop.info.description[0]}
               is_private={airdrop.info.isPrivate}
+              airdrop={airdrop}
               tags={['Web3', 'nn']}
               description={airdrop.info.description[1]}
               address={airdrop.address}
