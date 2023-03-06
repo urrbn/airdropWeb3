@@ -179,7 +179,7 @@ export const getAirdropInfos = async (address) => {
   await ethcallProvider.init()
   let calls = []
   for (let i = 0; i < address.length; i++) {
-    const tokenContract = new Contract(address[i], PrivateAirdropAbi)
+    const tokenContract = new Contract(address[i], PublicAirdropAbi)
     calls.push(tokenContract.getInfo())
     calls.push(tokenContract.owner())
   }
@@ -202,6 +202,75 @@ export const getAirdropInfos = async (address) => {
     return {
       success: true,
       data: result,
+    }
+  } catch (error) {
+    return {
+      success: false,
+      data: result,
+    }
+  }
+}
+
+export const getPublicAirdropsInfos = async (address) => {
+  setMulticallAddress(CHAIN_NUMBER, MULTICALL_ADDRESS[CHAIN_NUMBER])
+  const provider = new ethers.providers.JsonRpcProvider(RPC_ADDRESS[CHAIN_NUMBER])
+  const ethcallProvider = new Provider(provider)
+  await ethcallProvider.init()
+  let calls = []
+  for (let i = 0; i < address.length; i++) {
+    const tokenContract = new Contract(address[i], PublicAirdropAbi)
+    calls.push(tokenContract.portionSize())
+    calls.push(tokenContract.totalPortions())
+    calls.push(tokenContract.portionsLeft())
+  }
+  let result = [];
+  
+  try {
+    const resCall = await ethcallProvider.all(calls)
+    result.push(resCall)
+    console.log(result, 'result')
+    return {
+      success: true,
+      data: result,
+    }
+  } catch (error) {
+    return {
+      success: false,
+      data: result,
+    }
+  }
+}
+
+export const getPublicAirdrops = async (address) => {
+  setMulticallAddress(CHAIN_NUMBER, MULTICALL_ADDRESS[CHAIN_NUMBER])
+  const provider = new ethers.providers.JsonRpcProvider(RPC_ADDRESS[CHAIN_NUMBER])
+  const ethcallProvider = new Provider(provider)
+  await ethcallProvider.init()
+  let calls = []
+  for (let i = 0; i < address.length; i++) {
+    const tokenContract = new Contract(address[i], PublicAirdropAbi)
+    calls.push(tokenContract.getInfo())
+  }
+  let result = [];
+  let publicAirdrops = [];
+  try {
+   
+    const resCall = await ethcallProvider.all(calls)
+    result.push(resCall)
+    console.log(result[0][1].isPrivate, 'ress')
+    
+    
+    for (let i = 0; i < address.length; i++) {
+      if(result[0][i].isPrivate === false){
+        publicAirdrops.push(address[i])
+        console.log(publicAirdrops, 'publicairdrops')
+      }
+      
+    }
+
+    return {
+      success: true,
+      data: publicAirdrops,
     }
   } catch (error) {
     return {
@@ -247,7 +316,7 @@ export const getAirdropList = async () => {
   const ethcallProvider = new Provider(provider)
   await ethcallProvider.init()
 
-  const tokenContract = new Contract('0xFEB0519C0eC588300146EA30133209aABD069432', AirdropFactoryAbi)
+  const tokenContract = new Contract('0x172c885B7b865f66eEF54721bf2f69D654CF3998', AirdropFactoryAbi)
   
   try {
     const tokenCall = await tokenContract.getAllAirdrops(START, END)
@@ -272,7 +341,7 @@ export const getTotalAirdrop = async () => {
   await ethcallProvider.init()
 
 
-  const tokenContract = new Contract('0xFEB0519C0eC588300146EA30133209aABD069432', AirdropFactoryAbi)
+  const tokenContract = new Contract('0x172c885B7b865f66eEF54721bf2f69D654CF3998', AirdropFactoryAbi)
   
   try {
     const numberCall = await tokenContract.getNumberOfAirdropsDeployed()

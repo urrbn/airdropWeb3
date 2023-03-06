@@ -11,6 +11,7 @@ import PrivateAirdropAbi from 'config/abi/PrivateAirdropAbi.json';
 import { getUserParticipationPrivate, getUserParticipationPublic } from 'utils/getAirdropList'
 import {useAirdropIsWL, useAirdropGetParticipation, useAirdropIsClaimed} from 'hooks/useAirdropInfo'
 import {useAirdropClaimSize, useAirdropNumberOfClaims} from 'hooks/useAirdropNumberOfClaimsAndClaimSize.js'
+import { getPublicAirdropsInfos } from 'utils/getAirdropList';
 
 
 export default function UserPanel({handleSetRemaining, is_private, amount, icon, filled_percent, ends_on, status, whitelist_address, whitelisted , remaining}) {
@@ -19,14 +20,28 @@ export default function UserPanel({handleSetRemaining, is_private, amount, icon,
     const [remainingAllocations, setRemainingAllocations] = useState();
     const [isWL, setIsWL] = useState();
     const [allocation, setAllocation] = useState();
+    const [numberOfClaims, setNumberOfclaims] = useState(0);
     const {library, chainId, account, active } = useEthers()   
     const { open: openLoadingModal, close: closeLoadingModal } = useModal('LoadingModal')
     
-    // const claimSize = useAirdropClaimSize(id)
-    // const numberOfClaims = useAirdropNumberOfClaims(id)
 
-     console.log(remaining, 'remainng')
-    // console.log(numberOfClaims, 'numberOfClaims')
+    console.log(remaining, 'remainng')
+  
+
+    if (is_private === false) {
+        (async () => {
+          try {
+    
+            const publicAirdropInfos = await getPublicAirdropsInfos([id]);
+            console.log(publicAirdropInfos.data[0][2], 'publicAirdropInfos')
+            const numberOfClaimsNum = formatUnits(publicAirdropInfos.data[0][2], 0)
+            setNumberOfclaims(numberOfClaimsNum)
+            console.log(numberOfClaimsNum, 'numberOfClaimsNum')
+          } catch (error) {
+            // Handle the error
+          }
+        })();
+    }
     
     
 
@@ -58,6 +73,7 @@ export default function UserPanel({handleSetRemaining, is_private, amount, icon,
     
     const handleClaim = async () => {
 
+        debugger
         const contract = new Contract(id, PublicAirdropAbi, library.getSigner())
         try {
           openLoadingModal()
@@ -92,16 +108,25 @@ export default function UserPanel({handleSetRemaining, is_private, amount, icon,
                 </div>
             </div>
 
-            {(remainingAllocations !== undefined && !is_private) && <div className="mt-7 flex justify-between">
+            {(numberOfClaims !== undefined && !is_private) && <div className="mt-7 flex justify-between">
                 <span className='font-medium text-sm text-gray dark:text-gray-dark'>
                     Remaining Allocations
                 </span>
                 <span className='font-bold text-sm text-dark-text dark:text-light-text'>
-                    {remainingAllocations.toLocaleString()} 
+                    {numberOfClaims.toLocaleString()} 
+                </span>
+            </div>}
+
+            {isAirdropClaimed && <div className="mt-7 flex justify-between">
+                <span className='font-medium text-sm text-gray dark:text-gray-dark'>
+                    You Claimed
+                </span>
+                <span className='font-bold text-sm text-dark-text dark:text-light-text'>
+                    {allocation.toLocaleString()} 
                 </span>
             </div>}
             
-            {(allocation !== undefined && account !== undefined) && <div className="mt-7 flex justify-between">
+            {(allocation !== undefined && account !== undefined && !isAirdropClaimed) && <div className="mt-7 flex justify-between">
                 <span className='font-medium text-sm text-gray dark:text-gray-dark'>
                     Your Allocation
                 </span>

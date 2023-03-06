@@ -70,11 +70,16 @@ export default function AirdropPageBase({ status , airdrop, showModal, admin }) 
       date = new Date(airdrop.info.startTime.toNumber() * 1000);
       var hours = date.getHours();
       
-      var minutes = "0" + date.getMinutes();
+      var minutes = "0" + date.getUTCDate();
 
-      var seconds = "0" + date.getSeconds();
+      var month = date.getMonth()
 
-      formattedTime = hours + ':' + minutes.substr(-2) + ' ' + date.toDateString()
+      var year = date.getUTCFullYear()
+
+      var day = date.getDay()
+
+
+      formattedTime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes.substr(-2) + ' ' + 'UTC'
       setTime(formattedTime)
     }
 
@@ -83,7 +88,7 @@ export default function AirdropPageBase({ status , airdrop, showModal, admin }) 
   }, [airdropInfo])
   
 
-  console.log(remaining, 'remainng page base')
+  console.log(time, 'time')
   
 
   return (

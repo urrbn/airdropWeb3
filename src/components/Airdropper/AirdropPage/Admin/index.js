@@ -5,6 +5,8 @@ import NotStartedPublic from './NotStartedPublic'
 import NotStartedPrivate from './NotStartedPrivate'
 import {useAirdropIsCancelled, useAirdropIsStarted, useAirdropIsEmpty} from 'hooks/useAirdropStatus'
 import { useParams } from 'react-router-dom'
+import { getPublicAirdropsInfos } from 'utils/getAirdropList'
+import { formatUnits } from 'ethers/lib/utils'
 
 const AdminPanel = ({
     airdrop,
@@ -20,10 +22,34 @@ const AdminPanel = ({
     const isStarted = useAirdropIsStarted(id);
     const isEmpty = useAirdropIsEmpty(id);
     const [status, setStatus] = useState('');
+    const [numberOfClaims, setNumberOfclaims] = useState(0);
+    const [numberOfRemainingClaims, setNumberOfRemainingClaims] = useState(0);
+    const [claimSize, setClaimSize] = useState(0);
 
     function handleStatusChange(newStatus) {
         //debugger
         setStatus(newStatus);
+    }
+
+    if (Private === false) {
+        (async () => {
+          try {
+    
+            const publicAirdropInfos = await getPublicAirdropsInfos([id]);
+            console.log(publicAirdropInfos.data[0][2], 'publicAirdropInfos')
+            const numberOfClaimsNum = formatUnits(publicAirdropInfos.data[0][1], 0)
+            const numberOfRemainingClaimsNum = formatUnits(publicAirdropInfos.data[0][2], 0)
+            const claimSizeNum = formatUnits(publicAirdropInfos.data[0][0], 18)
+            setNumberOfRemainingClaims(numberOfRemainingClaimsNum)
+            setNumberOfclaims(numberOfClaimsNum)
+            setClaimSize(claimSizeNum)
+            console.log(numberOfClaims, 'numberOfClaims')
+            console.log(numberOfRemainingClaims, 'numberOfRemainingClaims')
+            console.log(claimSize, 'claimSize')
+          } catch (error) {
+            // Handle the error
+          }
+        })();
     }
 
     useEffect(() => {
@@ -57,10 +83,7 @@ const AdminPanel = ({
         
     }, [isCancelled, isStarted, isEmpty, id])
 
-    console.log(status, 'hhhhstatus')
-    console.log(isStarted, 'isStarted')
-    console.log(isEmpty, 'isEmpty')
-    console.log(isCancelled, 'isCancelled')
+    
 
     return (
         <div className="hidden md:block px-9 pb-9 bg-white dark:bg-dark-1 rounded-[20px]">
@@ -83,10 +106,10 @@ const AdminPanel = ({
                     }
                 </div> */}
             <div className='mt-5'>
-                {status === 'Ended' && <Ended whitelist_address={whitelist_address} amount={0} allocated={allocated} participants={participants} status={status} showModal={showModal}/>}
-                {status === 'Live' && <Live whitelist_address={whitelist_address} amount={amount}  status={status} handleStatusChange={handleStatusChange}/>}
-                {(status === 'Timed' && Private) && <NotStartedPrivate airdrop={airdrop} whitelist_address={whitelist_address} showModal={showModal}/>}
-                {(status === 'Timed' && !Private) && <NotStartedPublic showModal={showModal}/>}
+                {status === 'Ended' && <Ended Private={Private} numberOfClaims={numberOfClaims} numberOfRemainingClaims={numberOfRemainingClaims} claimSize={claimSize} whitelist_address={whitelist_address} amount={0} allocated={allocated} participants={participants} status={status} showModal={showModal}/>}
+                {status === 'Live' && <Live Private={Private} numberOfClaims={numberOfClaims} numberOfRemainingClaims={numberOfRemainingClaims} claimSize={claimSize} whitelist_address={whitelist_address} amount={amount}  status={status} handleStatusChange={handleStatusChange}/>}
+                {(status === 'Timed' && Private) && <NotStartedPrivate numberOfClaims={numberOfClaims} numberOfRemainingClaims={numberOfRemainingClaims} claimSize={claimSize} airdrop={airdrop} whitelist_address={whitelist_address} showModal={showModal}/>}
+                {(status === 'Timed' && !Private) && <NotStartedPublic numberOfClaims={numberOfClaims} numberOfRemainingClaims={numberOfRemainingClaims} claimSize={claimSize} showModal={showModal}/>}
                 </div>   
         </div>
     )

@@ -26,7 +26,7 @@ export default function Createsale({ setAirdropData, airdropData, token, setActi
 
   const handleCreateAirdrop = async () => {
     openLoadingModal()
-    const contract = new Contract('0xFEB0519C0eC588300146EA30133209aABD069432', AirdropFactoryAbi, library.getSigner())
+    const contract = new Contract('0x172c885B7b865f66eEF54721bf2f69D654CF3998', AirdropFactoryAbi, library.getSigner())
     try {
       const createAirdrop = await contract.deployAirdrop(airdropData.tokenAddress,
         [airdropData.image,
@@ -58,7 +58,7 @@ export default function Createsale({ setAirdropData, airdropData, token, setActi
 
   const handleCreatePublicAirdrop = async () => {
     openLoadingModal()
-    const contract = new Contract('0xFEB0519C0eC588300146EA30133209aABD069432', AirdropFactoryAbi, library.getSigner())
+    const contract = new Contract('0x172c885B7b865f66eEF54721bf2f69D654CF3998', AirdropFactoryAbi, library.getSigner())
     try {
       const createAirdrop = await contract.deployPublicAirdrop(airdropData.tokenAddress,
         [airdropData.image,

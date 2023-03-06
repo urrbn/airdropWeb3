@@ -6,8 +6,25 @@ import moment from "moment";
 import { getLpInfo } from "utils/lpInfo";
 import TokenImage from "components/Common/TokenImage";
 import Timer from "../../Launchpad/Pools/Subcomponents/Timer";
+import { getPublicAirdropsInfos } from "utils/getAirdropList";
+
 
 export default function AirdropCard({ data, status,  privateCard }) {
+  const [numberOfClaims, setNumberOfclaims] = useState(0)
+  if (privateCard === false) {
+    (async () => {
+      try {
+
+        const publicAirdropInfos = await getPublicAirdropsInfos([data.address]);
+        console.log(publicAirdropInfos.data[0][1], 'publicAirdropInfos')
+        const numberOfClaimsNum = formatUnits(publicAirdropInfos.data[0][1], 0)
+        setNumberOfclaims(numberOfClaimsNum)
+        console.log(numberOfClaimsNum, 'numberOfClaimsNum')
+      } catch (error) {
+        // Handle the error
+      }
+    })();
+  }
   let totalAmount = Number(formatUnits(data.info.totalAmountToAirdrop, 18));
   const tags = data.info.description[2].split(",");
   console.log(tags, "tags");
@@ -122,7 +139,7 @@ export default function AirdropCard({ data, status,  privateCard }) {
             </div>
           )}
 
-          <div className="flex items-center justify-between mt-6">
+          {privateCard? (<div className="flex items-center justify-between mt-6">
             <div className="flex flex-col items-center justify-between">
               <span className="text-xs font-medium text-gray dark:text-gray-dark">
                 Selected Addr.
@@ -141,7 +158,28 @@ export default function AirdropCard({ data, status,  privateCard }) {
                 {data.info.numberOfParticipants.toNumber()}
               </span>
             </div>
+          </div>) :(
+            <div className="flex items-center justify-between mt-6">
+            <div className="flex flex-col items-center justify-between">
+              <span className="text-xs font-medium text-gray dark:text-gray-dark">
+                Number Of Claims.
+              </span>
+              <span className="text-dark-text dark:text-light-text font-semibold">
+                {Math.floor(numberOfClaims)}
+              </span>
+            </div>
+
+            <div className="flex flex-col justify-between items-center">
+              <span className="text-xs font-medium text-gray dark:text-gray-dark">
+                Participants
+              </span>
+
+              <span className="text-dark-text dark:text-light-text font-semibold">
+                {data.info.numberOfParticipants.toNumber()}
+              </span>
+            </div>
           </div>
+          )}
         </div>
 
         {/* {data.status === 'Timed' &&
