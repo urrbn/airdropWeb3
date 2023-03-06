@@ -81,7 +81,7 @@ export default function AddAllocationsCreation({decimals, airdropAddress, showMo
                         className="bg-transparent w-full px-5 py-4 font-gilroy placeholder:font-medium placeholder:text-dim-text font-semibold text-dark-text dark:text-light-text focus:outline-none"
                         value={allocation}
                         onChange={(e) => setAllocation(e.target.value)}
-                        placeholder={"0xk45930x0xk45930x0xk45930x0xk45930x0xk45930x0xk45930x0xk45930x"}
+                        placeholder={"0x5168C3d820A2a2521F907cD74F6E1DE43E95da22,1000"}
                     />
                 </div>
                 </div>
