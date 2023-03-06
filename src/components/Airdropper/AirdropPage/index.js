@@ -68,18 +68,32 @@ export default function AirdropPageBase({ status , airdrop, showModal, admin }) 
         formattedTime = 'Not started yet';
     }else{
       date = new Date(airdrop.info.startTime.toNumber() * 1000);
-      var hours = date.getHours();
-      
-      var minutes = "0" + date.getUTCDate();
+     
+      const year = date.getFullYear(); // get year (e.g. 2021)
+      let month = date.getMonth() + 1; // get month (note: month is zero-indexed in JavaScript, so add 1 to get the correct month)
+      let day = date.getDate(); // get day of the month (e.g. 6)
+      let hours = date.getHours(); // get hours (e.g. 12)
+      let minutes = date.getMinutes(); // get minutes (e.g. 30)
 
-      var month = date.getMonth()
+      if (minutes < 10) {
+        minutes = "0" + minutes; // prepend a '0' character if minutes is less than 10
+      }
 
-      var year = date.getUTCFullYear()
+      if (hours < 10) {
+        hours = "0" + hours; // prepend a '0' character if hours is less than 10
+      }
 
-      var day = date.getDay()
+      if (day < 10) {
+        day = "0" + day; // prepend a '0' character if hours is less than 10
+      }
+
+      if (month < 10) {
+        month = "0" + month; // prepend a '0' character if hours is less than 10
+      }
 
 
-      formattedTime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes.substr(-2) + ' ' + 'UTC'
+
+      formattedTime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ' ' + 'UTC'
       setTime(formattedTime)
     }
 
