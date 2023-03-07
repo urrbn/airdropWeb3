@@ -55,12 +55,16 @@ export default function Preview({
       />
 
       <div className="mt-6 flex md:hidden gap-5 ml-[70px]">
-        <Link to={airdrop.info.description[4]}>
-          <TwitterSVG className="fill-dark-text dark:fill-light-text hover:cursor-pointer" />
-        </Link>
-        <Link to={airdrop.info.description[5]}>
-          <DribbleSVG className="fill-dark-text dark:fill-light-text hover:cursor-pointer" />
-        </Link>
+        {airdrop.info.description[4] !== "" &&
+          <Link to={airdrop.info.description[4]}>
+            <TwitterSVG className="fill-dark-text dark:fill-light-text hover:cursor-pointer" />
+          </Link>
+        }
+        {airdrop.info.description[5] !== "" &&
+          <Link to={airdrop.info.description[5]}>
+            <DribbleSVG className="fill-dark-text dark:fill-light-text hover:cursor-pointer" />
+          </Link>
+        }
       </div>
       <div className="mt-10">
         <span className="font-medium text-sm text-gray dark:text-gray-dark">

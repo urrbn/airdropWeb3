@@ -36,6 +36,14 @@ export default function Detailspage({
   };
 
   const handleSubmit = () => {
+    if (!isValidUrl(airdropData.image)) {
+      setValid(false);
+      return;
+    } else {
+      setValid(true);
+    }
+
+
     if (!isValidUrl(airdropData.website)) {
       setValidWebsite(false);
       return;
@@ -43,25 +51,33 @@ export default function Detailspage({
       setValidWebsite(true);
     }
 
-    if (!isValidUrl(airdropData.twitter)) {
-      setValidTwitter(false);
-      return;
-    } else {
-      setValidTwitter(true);
+
+    if (airdropData.twitter !== "") {
+      if (!isValidUrl(airdropData.twitter)) {
+        setValidTwitter(false);
+        return;
+      } else {
+        setValidTwitter(true);
+      }
     }
 
-    if (!isValidUrl(airdropData.linkedin)) {
-      setValidLinkedin(false);
-      return;
-    } else {
-      setValidLinkedin(true);
+    if (airdropData.linkedin !== "") {
+      if (!isValidUrl(airdropData.linkedin)) {
+        setValidLinkedin(false);
+        return;
+      } else {
+        setValidLinkedin(true);
+      }
     }
 
-    if (!isValidUrl(airdropData.github)) {
-      setValidGithub(false);
-      return;
-    } else {
-      setValidGithub(true);
+
+    if (airdropData.github !== "") {
+      if (!isValidUrl(airdropData.github)) {
+        setValidGithub(false);
+        return;
+      } else {
+        setValidGithub(true);
+      }
     }
 
     if (isValidUrl(airdropData.image) && isValidUrl(airdropData.website))
@@ -95,7 +111,7 @@ export default function Detailspage({
           </div>
         </div>
         <div className="mt-5 flex items-center justify-between gap-5 cursor-pointer">
-          <div className="flex items-center justify-between bg-[#FAF8F5] dark:bg-dark-2 px-5 py-4 rounded-md w-[100%]">
+          <div className={`flex items-center justify-between bg-[#FAF8F5] border dark:bg-dark-2 px-5 py-4 rounded-md w-[100%] ${valid ? 'border-dim-text' : 'border-red-500'}`}>
             <input
               type="text"
               placeholder="Ex: https://..."
