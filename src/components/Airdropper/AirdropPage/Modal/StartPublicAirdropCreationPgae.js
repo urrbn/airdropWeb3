@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom'
 export default function StartPublicAirdropCreationPage({ decimals, tokenAddress, airdropAddress, showModal, modal }) {
   
   const [date, setDate] = useState()
+  const [error, setError] = useState('')
   const [numberOfClaims, setNumberOfClaims] = useState(0)
   const [claimSize, setSizeofclaims] = useState(0)
   const [active, setActive] = useState(false)
@@ -77,6 +78,7 @@ export default function StartPublicAirdropCreationPage({ decimals, tokenAddress,
 
   console.log(needApprove, 'needApprove')
   console.log(isValid, 'isValid')
+  console.log(isChecked, 'isChecked')
   console.log((Math.floor(Date.now() / 1000) + 120), 'Math.floor(Date.now() / 1000)')
 
 
@@ -88,20 +90,28 @@ export default function StartPublicAirdropCreationPage({ decimals, tokenAddress,
       const approval = await contractERC20.approve(airdropAddress, ethers.constants.MaxUint256)
       await approval.wait()
       closeLoadingModal()
-    } catch (error) {closeLoadingModal()}
+      setError(undefined);
+    } catch (error) {
+
+      console.log(error.reason, 'reason');
+      setError(error.reason);
+
+      closeLoadingModal()
+    }
   }
 
   const handleStartAirdrop = async() => {
       if(isChecked){
         setDate(Math.floor(Date.now() / 1000) + 60)
       }
-
-      if(date !== 'undefined'){
+      debugger
+      if(date !== undefined){
         try {
           openLoadingModal()
+          debugger
           const airdrop = new Contract(airdropAddress, PublicAirdropAbi, library.getSigner())
           let claimSizeBigInt = parseUnits(claimSize.toString(), decimals)
-          let numberOfClaimsBigInt = parseUnits(numberOfClaims.toString(), 1)
+          let numberOfClaimsBigInt = parseUnits(numberOfClaims.toString(), 0)
           const startAirdrop = await airdrop.start(date, numberOfClaimsBigInt, claimSizeBigInt)
           await startAirdrop.wait()
           navigate(`/airdropper/airdrops/${airdropAddress}`)
@@ -109,9 +119,15 @@ export default function StartPublicAirdropCreationPage({ decimals, tokenAddress,
           showModal(0)
           return
         } catch (error) {
+          
+          console.log(error.reason, 'reason');
+          setError(error.reason);
           closeLoadingModal()
           return false
         }
+      }else{
+        setError('Set The Start Date');
+        return false
       }
   }
 
@@ -168,7 +184,7 @@ export default function StartPublicAirdropCreationPage({ decimals, tokenAddress,
         </button>
       </div> }       
 
-      {active && !needApprove&&
+      {(date !== "undefined" && active && !needApprove)&&
         <div className="w-full max-w-[420px]  mt-10">
         <button
           className="w-full bg-primary-green text-white py-5 rounded-md font-gilroy font-bold text-xl"
@@ -177,6 +193,13 @@ export default function StartPublicAirdropCreationPage({ decimals, tokenAddress,
           Confirm
         </button>
       </div>}
+
+      {error && (
+        <p className="mt-4 text-red-500 text-center">{error}</p>
+      )}
+
+      
+
     </div>
     </div>
   )

@@ -8,6 +8,7 @@ import { parseUnits } from 'ethers/lib/utils'
 
 export default function AddAllocationsCreation({decimals, airdropAddress, showModal}) {
   const [allocation, setAllocation] = useState("")
+  const [error, setError] = useState()
   const [ready, setReady] = useState(false)
   const { account, library, chainId } = useEthers()   
   const { open: openLoadingModal, close: closeLoadingModal } = useModal('LoadingModal')
@@ -40,9 +41,11 @@ export default function AddAllocationsCreation({decimals, airdropAddress, showMo
           setAllocation('')
       }
       closeLoadingModal()
+      setError(undefined);
       //navigate(`/locked-assets`)
       return
     } catch (error) {
+      setError(error.reason);
       closeLoadingModal()
       return false
     }
@@ -109,6 +112,9 @@ export default function AddAllocationsCreation({decimals, airdropAddress, showMo
           Proceed to Start
         </button>}
       </div>
+      {error && (
+        <p className="mt-4 text-red-500 text-center">{error}</p>
+      )}
     </div>
     </div>
   )

@@ -37,8 +37,7 @@ export default function Createsale({ setAirdropData, airdropData, token, setActi
         airdropData.linkedin,
         airdropData.github,
         airdropData.name], {
-        value: 0,
-        gasLimit: 2000000
+        value: 0
       })
       await createAirdrop.wait()
       const airdropAddress = await contract.getLastDeployedAirdrop();
@@ -51,6 +50,7 @@ export default function Createsale({ setAirdropData, airdropData, token, setActi
       showModal(2)
       return
     } catch (error) {
+      console.log(error.message, 'eee')
       closeLoadingModal()
       return false
     }
@@ -70,7 +70,6 @@ export default function Createsale({ setAirdropData, airdropData, token, setActi
         airdropData.github,
         airdropData.name], {
         value: 0,
-        gasLimit: 2000000
       })
       await createAirdrop.wait()
       const airdropAddress = await contract.getLastDeployedAirdrop();

@@ -16,6 +16,7 @@ import { formatBigToNum } from '../../../../utils/numberFormat'
 
 export default function StartPrivateAirdropCreation({ decimals, airdropAddress, tokenAddress, showModal, modal }) {
   const [date, setDate] = useState()
+  const [error, setError] = useState('')
   const [active, setActive] = useState(false)
   const [totalAmountToAirdrop, setTotalAmountToAirdrop] = useState()
   const { account, library, chainId } = useEthers();
@@ -31,7 +32,7 @@ export default function StartPrivateAirdropCreation({ decimals, airdropAddress, 
   console.log(airdropAddress, 'airdropAddressg')
 
   useEffect(() => {
-    console.log(date, 'dte')
+   
     if(!active){
       async function fetchData() {
         try{
@@ -96,15 +97,20 @@ export default function StartPrivateAirdropCreation({ decimals, airdropAddress, 
       const approval = await contractERC20.approve(airdropAddress, ethers.constants.MaxUint256)
       await approval.wait()
       closeLoadingModal()
-    } catch (error) {closeLoadingModal()}
+      setError(undefined);
+    } catch (error) {
+      setError(error.reason);
+      closeLoadingModal()
+    }
   }
 
   const handleStartAirdrop = async() => {
     if(isChecked){
         setDate(Math.floor(Date.now() / 1000) + 60)
     }  
-    //debugger
-    if(date !== 'undefined'){
+
+    debugger
+    if(date !== undefined){
       try {
         openLoadingModal()
         const airdrop = new Contract(airdropAddress, PrivateAirdropAbi, library.getSigner())
@@ -115,9 +121,14 @@ export default function StartPrivateAirdropCreation({ decimals, airdropAddress, 
         showModal(0)
         return
       } catch (error) {
+        console.log(error.reason, 'reason');
+        setError(error.reason);
         closeLoadingModal()
         return false
       }
+    }else{
+      setError('Set The Start Date');
+      return false
     }
   }
 
@@ -161,7 +172,7 @@ export default function StartPrivateAirdropCreation({ decimals, airdropAddress, 
       {active && !needApprove  &&
         <div className="w-full max-w-[420px]  mt-10">
         <button
-          disabled={!isValid}
+          
           className="w-full bg-primary-green text-white py-5 rounded-md font-gilroy font-bold text-xl"
           onClick={handleStartAirdrop}
         >
@@ -169,6 +180,11 @@ export default function StartPrivateAirdropCreation({ decimals, airdropAddress, 
         </button>
       </div>
       }
+
+      {error && (
+        <p className="mt-4 text-red-500 text-center">{error}</p>
+      )}
+
 
 
 
