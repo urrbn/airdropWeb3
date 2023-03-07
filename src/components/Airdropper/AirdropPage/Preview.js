@@ -8,6 +8,7 @@ import { getTokenInfo } from "../../../utils/tokenInfo";
 import { Link } from "react-router-dom";
 import GithubSVG from "svgs/Socials/github";
 import { ThemeContext } from "context/ThemeContext/ThemeProvider";
+import LinkedinSVG from "svgs/Socials/linkedin";
 
 export default function Preview({
   icon,
@@ -57,7 +58,18 @@ export default function Preview({
         airdrop={airdrop}
       />
 
-      <div className="mt-6 flex md:hidden gap-5 ml-[70px]">
+      <div className="mt-6 flex md:hidden gap-5 items-center ml-[70px]">
+
+
+        {airdrop.info.description[3] !== "" &&
+          <Link to={airdrop.info.description[3]}>
+            <LinkedinSVG
+              className="w-5 h-5"
+              outer={`${theme === "dark" ? "#fff" : "#464754"}`}
+              inner={`${theme === "dark" ? "#464754" : "#fff"}`}
+            />
+          </Link>
+        }
 
         {airdrop.info.description[4] !== "" &&
           <Link to={airdrop.info.description[4]}>
