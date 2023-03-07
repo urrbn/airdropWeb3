@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Info from "./Info";
 import PreviewDetails from "../../Common/PreviewDetails";
 import TwitterSVG from "../../../svgs/Socials/twitter";
@@ -6,6 +6,8 @@ import DribbleSVG from "../../../svgs/Socials/dribble";
 import PreviewHeader from "../../Common/PreviewHeader";
 import { getTokenInfo } from "../../../utils/tokenInfo";
 import { Link } from "react-router-dom";
+import GithubSVG from "svgs/Socials/github";
+import { ThemeContext } from "context/ThemeContext/ThemeProvider";
 
 export default function Preview({
   icon,
@@ -25,9 +27,10 @@ export default function Preview({
     TokenDecimals: "",
     TotalSupply: "",
   };
+  const { theme } = useContext(ThemeContext);
 
   const [tokenData, setTokenData] = useState({ ...initTokenData });
-
+  console.log(airdrop.info.description)
   useEffect(() => {
     const handleFetch = async () => {
       const tokenInfo = await getTokenInfo(tokenAddress);
@@ -50,11 +53,12 @@ export default function Preview({
         icon={icon}
         is_private={is_private}
         tags={tags}
-        admin={admin}
+        admin={false}
         airdrop={airdrop}
       />
 
       <div className="mt-6 flex md:hidden gap-5 ml-[70px]">
+
         {airdrop.info.description[4] !== "" &&
           <Link to={airdrop.info.description[4]}>
             <TwitterSVG className="fill-dark-text dark:fill-light-text hover:cursor-pointer" />
@@ -64,6 +68,15 @@ export default function Preview({
           <Link to={airdrop.info.description[5]}>
             <DribbleSVG className="fill-dark-text dark:fill-light-text hover:cursor-pointer" />
           </Link>
+        }
+        {airdrop.info.description[6] !== "" &&
+          <Link to={airdrop.info.description[6]}>
+            <GithubSVG
+              className="w-5 h-5"
+              outer={`${theme === "dark" ? "#fff" : "#464754"}`}
+              inner={`${theme === "dark" ? "#464754" : "#fff"}`}
+            />          
+            </Link>
         }
       </div>
       <div className="mt-10">
