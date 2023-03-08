@@ -6,6 +6,7 @@ import { useModal } from 'react-simple-modal-provider'
 import { AIRDROP_FACTORY_ADDRESS } from '../../../config/constants/address'
 import { ethers } from 'ethers'
 import { useEthers } from '@usedapp/core'
+import { formatUnits } from 'ethers/lib/utils'
 import { Contract } from '@ethersproject/contracts'
 import AirdropFactoryAbi from 'config/abi/AirdropFactory.json'
 import { formatBigToNum } from '../../../utils/numberFormat'
@@ -26,8 +27,13 @@ export default function Createsale({ setAirdropData, airdropData, token, setActi
 
   const handleCreateAirdrop = async () => {
     openLoadingModal()
-    const contract = new Contract('0x172c885B7b865f66eEF54721bf2f69D654CF3998', AirdropFactoryAbi, library.getSigner())
+    const contract = new Contract('0xBe685624896D52Ca7bCAcB3546f9a20D0451CC07', AirdropFactoryAbi, library.getSigner())
+    
+    debugger 
+    const fee = await contract.fee();
+    console.log(fee, 'fee')
     try {
+
       const createAirdrop = await contract.deployAirdrop(airdropData.tokenAddress,
         [airdropData.image,
         airdropData.description,
@@ -37,7 +43,7 @@ export default function Createsale({ setAirdropData, airdropData, token, setActi
         airdropData.linkedin,
         airdropData.github,
         airdropData.name], {
-        value: 0
+        value: fee.privateFee
       })
       await createAirdrop.wait()
       const airdropAddress = await contract.getLastDeployedAirdrop();
@@ -58,8 +64,12 @@ export default function Createsale({ setAirdropData, airdropData, token, setActi
 
   const handleCreatePublicAirdrop = async () => {
     openLoadingModal()
-    const contract = new Contract('0x172c885B7b865f66eEF54721bf2f69D654CF3998', AirdropFactoryAbi, library.getSigner())
+    const contract = new Contract('0xBe685624896D52Ca7bCAcB3546f9a20D0451CC07', AirdropFactoryAbi, library.getSigner())
+    debugger 
+    const fee = await contract.fee();
+   // const publicFee = fee
     try {
+
       const createAirdrop = await contract.deployPublicAirdrop(airdropData.tokenAddress,
         [airdropData.image,
         airdropData.description,
@@ -69,7 +79,7 @@ export default function Createsale({ setAirdropData, airdropData, token, setActi
         airdropData.linkedin,
         airdropData.github,
         airdropData.name], {
-        value: 0,
+        value: fee.publicFee,
       })
       await createAirdrop.wait()
       const airdropAddress = await contract.getLastDeployedAirdrop();

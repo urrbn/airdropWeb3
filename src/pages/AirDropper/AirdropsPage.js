@@ -10,7 +10,9 @@ import StartPublicAirdrop from '../../components/Airdropper/AirdropPage/Modal/St
 import { getAirdropInfos, getAirdropStatus } from 'utils/getAirdropList'
 import { useEthers} from '@usedapp/core'
 import useAirdropOwner from 'hooks/useAirdropOwner'
+import useIsOwner from 'hooks/useIsOwner'
 import useTokenInfo from 'hooks/useTokenInfo'
+import useTokenDecimals from 'hooks/useTokenDecimals'
 
 
 
@@ -22,23 +24,22 @@ export default function PoolPage() {
   const [asset, setAsset] = useState(null)
   const [status, setStatus] = useState('k')
   const [ready, setReady] = useState(false)
+  const [token, setToken] = useState()
   const navigate = useNavigate();
   const { active, account, library, chainId } = useEthers();
   
 
   const owner = useAirdropOwner(id)
+  const isOwner = useIsOwner(id, account);
+  
 
 
   useEffect(() => {
-    
-    if (typeof owner == "undefined") {
-      return
-    }
 
-    
-    
-    if(active && (account == owner[0])){
+    if(isOwner){
       setAdminMode(true)
+    }else{
+      setAdminMode(false)
     }
     
     
@@ -50,7 +51,7 @@ export default function PoolPage() {
       setAsset(false)
       try {
         const info = await getAirdropInfos([id])
-        console.log(info, 'totalAmountto')
+        setToken(info.data[0].info.token)
         const statuses = await getAirdropStatus([id])
         const isStarted = statuses.data[0].airDropStarted;
         const isEmpty = statuses.data[0].isEmpty;
@@ -112,10 +113,10 @@ export default function PoolPage() {
     <div className='w-full'>
       {modal !== 0 &&
         <div className="fixed z-50  top-0 left-0">
-          {modal === 1 && <AddAllocations showModal={showModal}/>} 
+          {modal === 1 && <AddAllocations decimals={18} tokenAddress={token} showModal={showModal}/>} 
           {modal === 2 && <RemoveAllocations showModal={showModal}/>} 
-          {modal === 3 && <StartPrivateAirdrop showModal={showModal} modal={modal}/>}
-          {modal === 4 && <StartPublicAirdrop showModal={showModal} modal={modal}/>}
+          {modal === 3 && <StartPrivateAirdrop decimals={18} tokenAddress={token}  showModal={showModal} modal={modal}/>}
+          {modal === 4 && <StartPublicAirdrop decimals={18} tokenAddress={token}  showModal={showModal} modal={modal}/>}
         </div>
       }
       <BaseLayout page_name={'Airdrops'} title={asset.name} subpage admin={adminMode} setAdminMode={setAdminMode}>

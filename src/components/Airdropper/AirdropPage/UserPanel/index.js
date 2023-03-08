@@ -18,6 +18,7 @@ export default function UserPanel({handleSetRemaining, is_private, amount, icon,
     const { id } = useParams()
     const [isAirdropClaimed, setIsAirdropClaimed] = useState(false);
     const [remainingAllocations, setRemainingAllocations] = useState();
+    const [error, setError] = useState();
     const [isWL, setIsWL] = useState();
     const [allocation, setAllocation] = useState();
     const [numberOfClaims, setNumberOfclaims] = useState(0);
@@ -86,9 +87,11 @@ export default function UserPanel({handleSetRemaining, is_private, amount, icon,
             setRemainingAllocations(amount/allocation.toNumber())
           }
           closeLoadingModal()
+          setError(undefined)
           return
         } catch (error) {
           console.log(error.message)
+          setError(error.reason)
           closeLoadingModal()
           return false
         }
@@ -187,6 +190,10 @@ export default function UserPanel({handleSetRemaining, is_private, amount, icon,
                 </button>
                 }
             </div>
+
+            {error && (
+             <p className="mt-4 text-red-500 text-center">{error.replace(/\b\w/g, (c) => c.toUpperCase())}</p>
+            )}
      
         </div>
     )

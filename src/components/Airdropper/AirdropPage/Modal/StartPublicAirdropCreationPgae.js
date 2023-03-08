@@ -41,6 +41,7 @@ export default function StartPublicAirdropCreationPage({ decimals, tokenAddress,
     setActive(true)
   }, [claimSize, numberOfClaims]);
 
+  debugger
   const allowance = useTokenAllowance(tokenAddress, account, airdropAddress, {
     refresh: 5,
   })

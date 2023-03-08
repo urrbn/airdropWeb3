@@ -3,37 +3,59 @@ import QuestionSVG from 'svgs/question'
 import PrivateAirdropAbi from 'config/abi/PrivateAirdropAbi.json';
 import { useEthers} from '@usedapp/core';
 import { Contract } from '@ethersproject/contracts'
-import { useParams} from 'react-router-dom'
 import { useModal } from 'react-simple-modal-provider'
+import { parseUnits } from 'ethers/lib/utils'
+import { useParams } from 'react-router-dom';
 
-export default function AddAllocations({ showModal}) {
+export default function AddAllocations({decimals,  showModal}) {
   const [allocation, setAllocation] = useState("")
-  const { id } = useParams()
+  const [error, setError] = useState()
+  const [ready, setReady] = useState(false)
   const { account, library, chainId } = useEthers()   
   const { open: openLoadingModal, close: closeLoadingModal } = useModal('LoadingModal')
+  const {id} = useParams();
 
-  const handleSetAllocations = async (addys, amounts) => {
+  const handleSetAllocations = async () => {
     openLoadingModal()
-    var allocationArray = allocation.split(',');
+    var allocationArray = allocation.split(/,|\n/);
 
     var addys = [],
-        amounts = [];
+        amounts = [],
+        amountsBigNumber =[];
 
     for(var i=0; i<allocationArray.length; i++)
         (i % 2 == 0 ? addys : amounts).push(allocationArray[i]);
 
+    for(var i=0; i<amounts.length; i++){
+        var amount = parseUnits(amounts[i], decimals)
+        amountsBigNumber.push(amount);
+    }
+    console.log(addys, 'addys')
+    console.log(amounts, 'amounts')
+    console.log(amountsBigNumber, 'amountsBigNumber')       
+
     const contract = new Contract(id, PrivateAirdropAbi, library.getSigner())
     try {
-      const setAllocations = await contract.setAllocations(addys, amounts)
+      const setAllocations = await contract.setAllocations(addys, amountsBigNumber)
       await setAllocations.wait()
+      if(addys.length > 0){
+          setReady(true)
+          setAllocation('')
+      }
       closeLoadingModal()
+      setError(undefined);
       //navigate(`/locked-assets`)
       return
     } catch (error) {
+      setError(error.reason);
       closeLoadingModal()
       return false
     }
   } 
+
+  const handleStartAirdrop = () => {
+     showModal(3)
+  };
    
 
 
@@ -64,19 +86,37 @@ export default function AddAllocations({ showModal}) {
                         className="bg-transparent w-full px-5 py-4 font-gilroy placeholder:font-medium placeholder:text-dim-text font-semibold text-dark-text dark:text-light-text focus:outline-none"
                         value={allocation}
                         onChange={(e) => setAllocation(e.target.value)}
-                        placeholder={"0xk45930x0xk45930x0xk45930x0xk45930x0xk45930x0xk45930x0xk45930x"}
+                        placeholder={"0x5168C3d820A2a2521F907cD74F6E1DE43E95da22,1000"}
                     />
                 </div>
                 </div>
             </div>
       <div className="w-full max-w-[420px]  mt-10">
-        <button
+        {!ready &&<button
           className="w-full bg-primary-green text-white py-5 rounded-md font-gilroy font-bold text-xl"
           onClick={handleSetAllocations}
         >
           Confirm
-        </button>
+        </button>} 
+        {ready && <button
+          className="w-full bg-primary-green text-white py-5 rounded-md font-gilroy font-bold text-xl"
+          onClick={handleSetAllocations}
+        >
+          Add More
+        </button>}
       </div>
+
+      <div className="w-full max-w-[420px]  mt-10">
+        {ready && <button
+          className="w-full bg-primary-green text-white py-5 rounded-md font-gilroy font-bold text-xl"
+          onClick={handleStartAirdrop}
+        >
+          Proceed to Start
+        </button>}
+      </div>
+      {error && (
+        <p className="mt-4 text-red-500 text-center">{error}</p>
+      )}
     </div>
     </div>
   )

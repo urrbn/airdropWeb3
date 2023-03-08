@@ -10,6 +10,7 @@ export const MULTICALL_ADDRESS = {
 export const RPC_ADDRESS = {
   [BSCTestnet.chainId]: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
   159: 'https://preseed-testnet-1.roburna.com/',
+  [BSC.chainId]: 'https://bsc-dataseed1.binance.org/'
 }
 
 export const ADMIN_ADDRESS = {

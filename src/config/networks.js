@@ -1,15 +1,15 @@
 // import { BSC, BSCTestnet } from '@usedapp/core'
-import { BSCTestnet } from '@usedapp/core'
+import { BSC } from '@usedapp/core'
 // import { RbaChain } from './constants/chain'
 
 export const networkConfig = {
-  readOnlyChainId: BSCTestnet.chainId,
+  readOnlyChainId: BSC.chainId,
   readOnlyUrls: {
-    [BSCTestnet.chainId]: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+    [BSC.chainId]: 'https://bsc-dataseed1.binance.org/',
     // [BSC.chainId]: BSC.rpcUrl,
     // [BSCTestnet.chainId]: BSCTestnet.rpcUrl,
   },
-  networks: [BSCTestnet],
+  networks: [BSC],
   noMetamaskDeactivate: true,
   refresh: 'never',
   pollingInterval: 15000,

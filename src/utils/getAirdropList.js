@@ -316,7 +316,7 @@ export const getAirdropList = async () => {
   const ethcallProvider = new Provider(provider)
   await ethcallProvider.init()
 
-  const tokenContract = new Contract('0x172c885B7b865f66eEF54721bf2f69D654CF3998', AirdropFactoryAbi)
+  const tokenContract = new Contract('0xBe685624896D52Ca7bCAcB3546f9a20D0451CC07', AirdropFactoryAbi)
   
   try {
     const tokenCall = await tokenContract.getAllAirdrops(START, END)
@@ -341,7 +341,7 @@ export const getTotalAirdrop = async () => {
   await ethcallProvider.init()
 
 
-  const tokenContract = new Contract('0x172c885B7b865f66eEF54721bf2f69D654CF3998', AirdropFactoryAbi)
+  const tokenContract = new Contract('0xBe685624896D52Ca7bCAcB3546f9a20D0451CC07', AirdropFactoryAbi)
   
   try {
     const numberCall = await tokenContract.getNumberOfAirdropsDeployed()

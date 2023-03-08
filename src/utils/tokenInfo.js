@@ -3,7 +3,7 @@ import ERC20Abi from '../config/abi/ERC20.json'
 import { ethers } from 'ethers'
 import { Contract, Provider, setMulticallAddress } from 'ethers-multicall'
 
-const CHAIN_NUMBER = 97
+const CHAIN_NUMBER = 56
 
 export const getTokenInfo = async (address) => {
   setMulticallAddress(CHAIN_NUMBER, MULTICALL_ADDRESS[CHAIN_NUMBER])
