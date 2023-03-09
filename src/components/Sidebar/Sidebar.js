@@ -128,7 +128,7 @@ export default function Sidebar({ fullSidebar, tempfixed, handleTempFixed, activ
               </div>
             </Link>
 
-              <div className={`bg-[#FAF8F5] dark:bg-dark-2 flex flex-col pl-[35%] mt-3  overflow-hidden ${activeItem === nav_item.name? "transition-sidebar-open pb-5":"transition-sidebar-close invisible"}`}>
+              <div className={`bg-[#FAF8F5] dark:bg-dark-2 flex flex-col pl-[35%] mt-3  overflow-hidden ${activeItem === nav_item.name? "transition-sidebar-open pb-5":"transition-sidebar-close"}`}>
                 {nav_item.subitems.map((subItem, index) => (
                   <Link key={index} to={subItem.link} className="mt-5">
                     <span
