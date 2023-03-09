@@ -95,7 +95,7 @@ export default function Sidebar({ fullSidebar, tempfixed, handleTempFixed, activ
     )
   }
   return (
-    <div className="w-full h-full pb-10  flex flex-col justify-between mb-5">
+    <div className="w-full h-full pb-10  flex flex-col justify-between mb-5 overflow-scroll">
       <div className="logo-div flex justify-center mt-10">
         <img src="/images/logo.svg" alt="logo" />
       </div>
@@ -128,8 +128,7 @@ export default function Sidebar({ fullSidebar, tempfixed, handleTempFixed, activ
               </div>
             </Link>
 
-            {activeItem === nav_item.name && (
-              <div className="bg-[#FAF8F5] dark:bg-dark-2 flex flex-col pl-[35%] mt-3 pb-5">
+              <div className={`bg-[#FAF8F5] dark:bg-dark-2 flex flex-col pl-[35%] mt-3  overflow-hidden ${activeItem === nav_item.name? "transition-sidebar-open pb-5":"transition-sidebar-close invisible"}`}>
                 {nav_item.subitems.map((subItem, index) => (
                   <Link key={index} to={subItem.link} className="mt-5">
                     <span
@@ -144,7 +143,7 @@ export default function Sidebar({ fullSidebar, tempfixed, handleTempFixed, activ
                   </Link>
                 ))}
               </div>
-            )}
+
           </div>
         ))}
         {activeItem === 'null' && <div className="bg-white dark:bg-dark-1 pt-[20%]"></div>}

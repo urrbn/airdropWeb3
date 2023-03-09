@@ -64,3 +64,14 @@ input:focus {
 .filled {
   background: linear-gradient(270.01deg, #C89C34 8.72%, #FFBB1C 78.42%);
 }
+
+.transition-sidebar-close{
+  max-height: 0px;
+  transition: max-height 0.3s ease-in-out 0s;
+}
+
+
+.transition-sidebar-open{
+  max-height: 144px;
+  transition: max-height 0.3s ease-in-out 0s;
+}
