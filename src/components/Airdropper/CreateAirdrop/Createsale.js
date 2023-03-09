@@ -92,7 +92,7 @@ export default function Createsale({ setAirdropData, airdropData, token, setActi
     <div className="">
       {modal !== 0 &&
         <div className="fixed backdrop-blur-[7px] w-full h-full flex justify-center  z-50  top-0 left-0">
-          <div className='h-screen w-full flex items-center'>
+          <div className='h-screen sticky top-0 w-full flex items-center'>
             {modal === 2 && <AddAllocationsCreation decimals={airdropData.tokenDecimals} airdropAddress={airdropData.airdropAddress} tokenAddress={airdropData.tokenAddress} showModal={showModal} modal={modal} />}
             {modal === 3 && <StartPrivateAirdropCreation decimals={airdropData.tokenDecimals} airdropAddress={airdropData.airdropAddress} tokenAddress={airdropData.tokenAddress} showModal={showModal} modal={modal} />}
             {modal === 4 && <StartPublicAirdropCreationPage decimals={airdropData.tokenDecimals} tokenAddress={airdropData.tokenAddress} airdropAddress={airdropData.airdropAddress} showModal={showModal} modal={modal} />}
