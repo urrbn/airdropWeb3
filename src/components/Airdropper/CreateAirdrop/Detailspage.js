@@ -20,7 +20,7 @@ export default function Detailspage({
   const [validLinkedin, setValidLinkedin] = useState(true);
   const [validGithub, setValidGithub] = useState(true);
   const [profileImage, setProfileImage] = useState(null);
-  const [valid, setValid] = useState(false);
+  const [valid, setValid] = useState(true);
   const { theme } = useContext(ThemeContext);
   //there are multiple tooltips so we need to keep track of which one is being hovered
   const [show, setShow] = useState([]);
