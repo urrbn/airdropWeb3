@@ -12,14 +12,17 @@ const socials = [
   {
     id: 1,
     icon: <TelegramSVG className="fill-dark-text dark:fill-light-text" />,
+    link: 'https://t.me/arborswap',
   },
   {
     id: 2,
     icon: <TwitterSVG className="fill-dark-text dark:fill-light-text" />,
+    link: 'https://twitter.com/arborswap_defi?s=21&t=oo8B0OfgInd080XRLyhVwg',
   },
   {
     id: 3,
     icon: <InstagramSVG className="fill-dark-text dark:fill-light-text" />,
+    link: 'https://www.instagram.com/arborswapofficial/?igshid=YmMyMTA2M2Y%3D',
   },
   // {
   //   id: 4,
@@ -111,11 +114,10 @@ export default function Sidebar({ fullSidebar, tempfixed, handleTempFixed, activ
                 <div className="flex ml-[20%]">
                   {nav_item.name === activeLink ? nav_item.activeIcon : nav_item.icon}
                   <span
-                    className={`font-gilroy font-semibold ml-5 ${
-                      nav_item.name === activeLink
+                    className={`font-gilroy font-semibold ml-5 ${nav_item.name === activeLink
                         ? 'text-primary-green'
                         : 'text-dim-text dark:text-dim-text-dark hover:text-primary-green'
-                    }`}
+                      }`}
                   >
                     {nav_item.name}
                   </span>
@@ -128,21 +130,20 @@ export default function Sidebar({ fullSidebar, tempfixed, handleTempFixed, activ
               </div>
             </Link>
 
-              <div className={`bg-[#FAF8F5] dark:bg-dark-2 flex flex-col pl-[35%] mt-3  overflow-hidden ${activeItem === nav_item.name? "transition-sidebar-open pb-5":"transition-sidebar-close"}`}>
-                {nav_item.subitems.map((subItem, index) => (
-                  <Link key={index} to={subItem.link} className="mt-5">
-                    <span
-                      className={`font-semibold font-gilroy ${
-                        location.pathname === subItem.link
-                          ? 'text-primary-green'
-                          : 'text-dim-text dark:text-dim-text-dark hover:text-primary-green'
+            <div className={`bg-[#FAF8F5] dark:bg-dark-2 flex flex-col pl-[35%] mt-3  overflow-hidden ${activeItem === nav_item.name ? "transition-sidebar-open pb-5" : "transition-sidebar-close"}`}>
+              {nav_item.subitems.map((subItem, index) => (
+                <a key={index} href={subItem.link} className="mt-5">
+                  <span
+                    className={`font-semibold font-gilroy ${location.pathname === subItem.link
+                        ? 'text-primary-green'
+                        : 'text-dim-text dark:text-dim-text-dark hover:text-primary-green'
                       }`}
-                    >
-                      {subItem.name}
-                    </span>
-                  </Link>
-                ))}
-              </div>
+                  >
+                    {subItem.name}
+                  </span>
+                </a>
+              ))}
+            </div>
 
           </div>
         ))}
@@ -172,18 +173,21 @@ export default function Sidebar({ fullSidebar, tempfixed, handleTempFixed, activ
           <div className="bg-[#C89211] rounded-[14px] flex items-center px-2 ml-5">
             <img src="/images/sidebar/logo.svg" alt="logo" />
 
-            <span className="font-gilroy ml-[10px] text-sm font-bold text-white">$0.25</span>
+            <span className="font-gilroy ml-[10px] text-sm font-bold text-white">
+              0.0033
+            </span>
           </div>
         </div>
 
         <div className="socials flex mt-9">
           {socials.map((social) => (
+            <a key={social.id} href={social.link} className="ml-[14px] first:ml-0" target="_blank" rel='noreferrer'>
             <div
-              key={social.id}
-              className="twitter flex items-center justify-center bg-[#F5F1EB] dark:bg-dark-3 w-[34px] h-[34px] rounded-md ml-[14px] first:ml-0"
+              className="twitter flex items-center justify-center bg-[#F5F1EB] dark:bg-dark-3 w-[34px] h-[34px] rounded-md "
             >
               {social.icon}
             </div>
+            </a>
           ))}
         </div>
 

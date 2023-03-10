@@ -1,64 +1,63 @@
 import AirplaneSVG from '../svgs/Sidebar/airplane'
 import DashboardSVG from '../svgs/Sidebar/dashboard'
-import LaunchpadSVG from '../svgs/Sidebar/launchpad'
 import MoreProductsSVG from '../svgs/Sidebar/more_products'
-import SheildSecuritySVG from '../svgs/Sidebar/shield_security'
 
 export const sitemap = [
   {
     id: 1,
-    name: 'Dashboard',
+    name: 'Home',
     extendable: false,
     icon: <DashboardSVG className="fill-dim-text dark:fill-dim-text-dark" />,
     activeIcon: <DashboardSVG className="fill-primary-green" />,
     subitems: [],
+    link: '/',
     sublinks: [],
   },
-  {
-    id: 2,
-    name: 'Launchpad',
-    extendable: true,
-    icon: <LaunchpadSVG className="fill-dim-text dark:fill-dim-text-dark" />,
-    activeIcon: <LaunchpadSVG className="fill-primary-green" />,
-    subitems: [
-      {
-        id: 1,
-        name: 'Pools',
-        link: '/launchpad/pools',
-      },
-      {
-        id: 2,
-        name: 'Create Sale',
-        link: '/launchpad/create-sale',
-      },
-    ],
-    sublinks: ['/launchpad/pools', '/launchpad/create-sale'],
-  },
-  {
-    id: 3,
-    name: 'Locker',
-    extendable: true,
-    icon: <SheildSecuritySVG className="fill-dim-text dark:fill-dim-text-dark" />,
-    activeIcon: <SheildSecuritySVG className="fill-primary-green" />,
-    subitems: [
-      {
-        id: 1,
-        name: 'Locked Assets',
-        link: '/locked-assets',
-      },
-      {
-        id: 2,
-        name: 'Token Locker',
-        link: '/locker/token-locker',
-      },
-      {
-        id: 3,
-        name: 'LP Locker',
-        link: '/locker/lp-locker',
-      },
-    ],
-    sublinks: ['/', '/locker/token-locker', '/locker/lp-locker'],
-  },
+  // {
+  //   id: 2,
+  //   name: 'Launchpad',
+  //   extendable: true,
+  //   icon: <LaunchpadSVG className="fill-dim-text dark:fill-dim-text-dark" />,
+  //   activeIcon: <LaunchpadSVG className="fill-primary-green" />,
+  //   subitems: [
+  //     {
+  //       id: 1,
+  //       name: 'Pools',
+  //       link: '/launchpad/pools',
+  //     },
+  //     {
+  //       id: 2,
+  //       name: 'Create Sale',
+  //       link: '/launchpad/create-sale',
+  //     },
+  //   ],
+  //   sublinks: ['/launchpad/pools', '/launchpad/create-sale'],
+  // },
+  // {
+  //   id: 3,
+  //   name: 'Locker',
+  //   extendable: true,
+  //   icon: <SheildSecuritySVG className="fill-dim-text dark:fill-dim-text-dark" />,
+  //   activeIcon: <SheildSecuritySVG className="fill-primary-green" />,
+  //   subitems: [
+  //     {
+  //       id: 1,
+  //       name: 'Locked Assets',
+  //       link: '/locked-assets',
+  //     },
+  //     {
+  //       id: 2,
+  //       name: 'Token Locker',
+  //       link: '/locker/token-locker',
+  //     },
+  //     {
+  //       id: 3,
+  //       name: 'LP Locker',
+  //       link: '/locker/lp-locker',
+  //     },
+  //   ],
+  //   sublinks: ['/', '/locker/token-locker', '/locker/lp-locker'],
+  // },
   {
     id: 4,
     name: 'Airdropper',
@@ -88,13 +87,13 @@ export const sitemap = [
     subitems: [
       {
         id: 1,
-        name: 'Airdrops',
-        link: '/airdrops',
+        name: 'DEX',
+        link: 'https://www.arborswap.org/swap',
       },
       {
         id: 2,
-        name: 'Create Airdrop',
-        link: '/create-airdrop',
+        name: 'Locker',
+        link: 'https://lock.arborswap.org/',
       },
     ],
     sublinks: ['', '/launchpad/token-locker', '/launchpad/lp-locker'],
