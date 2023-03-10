@@ -38,7 +38,6 @@ export default function StartPrivateAirdrop({ decimals,  tokenAddress, showModal
           const info = await getAirdropInfos([id]);
           setTotalAmountToAirdrop(info.data[0].info.totalAmountToAirdrop)
           setActive(true)
-          console.log(info.data[0].info.totalAmountToAirdrop)
         }catch(error){
           setActive(false)
         }
@@ -55,16 +54,11 @@ export default function StartPrivateAirdrop({ decimals,  tokenAddress, showModal
     refresh: 5,
   })
 
-  console.log(allowance, 'allowance')
-  console.log(balance, 'balance')
-  console.log(totalAmountToAirdrop, 'totalAmountToAirdrop')
-
   const needApprove = useMemo(() => {
     if(active){
        if (typeof allowance === 'undefined') {
            return true
          }
-         console.log(totalAmountToAirdrop.gt(allowance), 'lll')
          return totalAmountToAirdrop.gt(allowance) 
     }
    
@@ -82,14 +76,11 @@ export default function StartPrivateAirdrop({ decimals,  tokenAddress, showModal
 
   }, [totalAmountToAirdrop, needApprove, balance])
 
-  console.log(needApprove, 'needApprove')
-  console.log(isValid, 'isValid')
 
 
 
   const handleApprove = async () => {
-    console.log(tokenAddress, 'tokenAddress')  
-    console.log(id, 'id')  
+
     try {
       openLoadingModal()
       const contractERC20 = new Contract(tokenAddress, ERCAbi, library.getSigner())
@@ -119,7 +110,6 @@ export default function StartPrivateAirdrop({ decimals,  tokenAddress, showModal
         showModal(0)
         return
       } catch (error) {
-        console.log(error.reason, 'reason');
         setError(error.reason);
         closeLoadingModal()
         return false

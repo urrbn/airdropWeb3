@@ -14,7 +14,6 @@ export default function Card({ data, token = false }) {
     refresh: 0,
   })
 
-  console.log(data, 'data');
 
   const amount = useMemo(() => {
     return tokenInfo ? formatUnits(data.info.amount, tokenInfo.decimals) : 0

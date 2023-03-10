@@ -20,7 +20,7 @@ export function useAirdropClaimSize(airdropAddress) {
       }
     ) ?? {}
   if (error) {
-    console.log(error.message, 'errr')
+    
     return 0
   }
   return value
@@ -39,7 +39,7 @@ export function useAirdropNumberOfClaims(airdropAddress) {
         }
       ) ?? {}
     if (error) {
-      console.log(error.message, 'errr')
+      
       return 0
     }
     return value 

@@ -84,7 +84,6 @@ export default function Detailspage({
       setActive("Preview");
   };
 
-  console.log(airdropData, "airdropdata");
 
   return (
     <div className="w-full p-5 md:p-9 bg-white dark:bg-dark-1 rounded-[10px] ">

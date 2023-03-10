@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.fade8a2c.css",
+    "main.js": "/static/js/main.d24feb47.js",
+    "static/js/725.2bfa16e2.chunk.js": "/static/js/725.2bfa16e2.chunk.js",
+    "static/media/Gilroy-Medium.woff2": "/static/media/Gilroy-Medium.32817d862e7baaedac65.woff2",
+    "static/media/Gilroy-Bold.woff2": "/static/media/Gilroy-Bold.5dacc44cf5a4278dace0.woff2",
+    "static/media/tree-logo.svg": "/static/media/tree-logo.713448d8ecba28f83819.svg",
+    "static/media/tree-logo-desktop.svg": "/static/media/tree-logo-desktop.e4f85c8214942c419378.svg",
+    "index.html": "/index.html",
+    "main.fade8a2c.css.map": "/static/css/main.fade8a2c.css.map",
+    "main.d24feb47.js.map": "/static/js/main.d24feb47.js.map",
+    "725.2bfa16e2.chunk.js.map": "/static/js/725.2bfa16e2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fade8a2c.css",
+    "static/js/main.d24feb47.js"
+  ]
+}

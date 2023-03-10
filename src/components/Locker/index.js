@@ -5,8 +5,6 @@ import List from './ListView/List'
 
 export default function LockerBase({ cardFormat, itemSelected, tokenList, liquidityList }) {
   useDocumentTitle('Locker')
-  console.log(tokenList, 'tokenList');
-  console.log(liquidityList, 'liquidityList');
 
   return cardFormat === 'grid' ? (
     <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-5 mt-7">

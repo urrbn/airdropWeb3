@@ -14,7 +14,6 @@ export default function Topbar({
 }) {
   const [tempfixed, setTempFixed] = useState(false)
 
-  console.log(admin, 'admin')
   
 
   const handleTempFixed = () => {

@@ -47,12 +47,6 @@ export default function PoolPage() {
 
 
   useEffect(() => {
-    if (asset) {
-    console.log(asset, 'asset.name') 
-    }
-  }, [asset])
-
-  useEffect(() => {
     let activated = true
     const handleFetch = async () => {
       setAsset(false)
@@ -64,10 +58,6 @@ export default function PoolPage() {
         const isEmpty = statuses.data[0].isEmpty;
         const isCancelled = statuses.data[0].airdropCancelled;
 
-        console.log(isStarted, 'isStarted')
-        console.log(isEmpty, 'isEmpty')
-        console.log(isCancelled, 'isCancelled')
-        console.log(statuses.data[0], 'statuses.data[0]')
 
         // if(active){
         //   if(owner === account){
@@ -105,8 +95,8 @@ export default function PoolPage() {
           return
         }
       } catch (error) {
-        console.log(error.message)
-        console.log('message')
+        
+
       }
     }
     handleFetch(id)

@@ -28,8 +28,6 @@ export default function StartPrivateAirdropCreation({ decimals, airdropAddress, 
     setIsChecked(!isChecked);
   };
 
-  console.log(tokenAddress, 'tkn')
-  console.log(airdropAddress, 'airdropAddressg')
 
   useEffect(() => {
    
@@ -39,7 +37,6 @@ export default function StartPrivateAirdropCreation({ decimals, airdropAddress, 
           const info = await getAirdropInfos([airdropAddress]);
           setTotalAmountToAirdrop(info.data[0].info.totalAmountToAirdrop)
           setActive(true)
-          console.log(info.data[0].info.totalAmountToAirdrop)
         }catch(error){
           setActive(false)
         }
@@ -56,16 +53,11 @@ export default function StartPrivateAirdropCreation({ decimals, airdropAddress, 
     refresh: 5,
   })
 
-  console.log(allowance, 'allowance')
-  console.log(balance, 'balance')
-  console.log(totalAmountToAirdrop, 'totalAmountToAirdrop')
-
   const needApprove = useMemo(() => {
     if(active){
        if (typeof allowance === 'undefined') {
            return true
          }
-         console.log(totalAmountToAirdrop.gt(allowance), 'lll')
          return totalAmountToAirdrop.gt(allowance) 
     }
    
@@ -83,15 +75,11 @@ export default function StartPrivateAirdropCreation({ decimals, airdropAddress, 
 
   }, [totalAmountToAirdrop, needApprove, balance])
 
-  console.log(needApprove, 'needApprove')
-  console.log(isValid, 'isValid')
 
 
 
   const handleApprove = async () => {
-    console.log(tokenAddress, 'tokenAddress')  
-    console.log(airdropAddress, 'airdropAddress')  
-    try {
+   try {
       openLoadingModal()
       const contractERC20 = new Contract(tokenAddress, ERCAbi, library.getSigner())
       const approval = await contractERC20.approve(airdropAddress, ethers.constants.MaxUint256)
@@ -121,7 +109,6 @@ export default function StartPrivateAirdropCreation({ decimals, airdropAddress, 
         showModal(0)
         return
       } catch (error) {
-        console.log(error.reason, 'reason');
         setError(error.reason);
         closeLoadingModal()
         return false

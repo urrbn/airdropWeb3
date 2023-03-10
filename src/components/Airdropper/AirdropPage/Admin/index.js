@@ -36,16 +36,12 @@ const AdminPanel = ({
           try {
     
             const publicAirdropInfos = await getPublicAirdropsInfos([id]);
-            console.log(publicAirdropInfos.data[0][2], 'publicAirdropInfos')
             const numberOfClaimsNum = formatUnits(publicAirdropInfos.data[0][1], 0)
             const numberOfRemainingClaimsNum = formatUnits(publicAirdropInfos.data[0][2], 0)
             const claimSizeNum = formatUnits(publicAirdropInfos.data[0][0], 18)
             setNumberOfRemainingClaims(numberOfRemainingClaimsNum)
             setNumberOfclaims(numberOfClaimsNum)
             setClaimSize(claimSizeNum)
-            console.log(numberOfClaims, 'numberOfClaims')
-            console.log(numberOfRemainingClaims, 'numberOfRemainingClaims')
-            console.log(claimSize, 'claimSize')
           } catch (error) {
             // Handle the error
           }

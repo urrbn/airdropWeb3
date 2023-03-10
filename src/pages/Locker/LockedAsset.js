@@ -39,7 +39,6 @@ export default function LockedAsset({ type }) {
           }
           if (infoLp.success) {
             setAsset(infoLp.data[0])
-            console.log(infoLp.data[0], 'asset')
             setReady(true)
             return
           } else {

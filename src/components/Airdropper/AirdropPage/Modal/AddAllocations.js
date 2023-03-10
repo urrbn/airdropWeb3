@@ -29,10 +29,7 @@ export default function AddAllocations({decimals,  showModal}) {
     for(var i=0; i<amounts.length; i++){
         var amount = parseUnits(amounts[i], decimals)
         amountsBigNumber.push(amount);
-    }
-    console.log(addys, 'addys')
-    console.log(amounts, 'amounts')
-    console.log(amountsBigNumber, 'amountsBigNumber')       
+    }    
 
     const contract = new Contract(id, PrivateAirdropAbi, library.getSigner())
     try {

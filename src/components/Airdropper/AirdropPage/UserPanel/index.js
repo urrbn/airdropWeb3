@@ -26,7 +26,6 @@ export default function UserPanel({handleSetRemaining, is_private, amount, icon,
     const { open: openLoadingModal, close: closeLoadingModal } = useModal('LoadingModal')
     
 
-    console.log(remaining, 'remainng')
   
 
     if (is_private === false) {
@@ -34,10 +33,8 @@ export default function UserPanel({handleSetRemaining, is_private, amount, icon,
           try {
     
             const publicAirdropInfos = await getPublicAirdropsInfos([id]);
-            console.log(publicAirdropInfos.data[0][2], 'publicAirdropInfos')
             const numberOfClaimsNum = formatUnits(publicAirdropInfos.data[0][2], 0)
             setNumberOfclaims(numberOfClaimsNum)
-            console.log(numberOfClaimsNum, 'numberOfClaimsNum')
           } catch (error) {
             // Handle the error
           }
@@ -66,7 +63,7 @@ export default function UserPanel({handleSetRemaining, is_private, amount, icon,
         try {
             fetchUserInfo()
         } catch (error) {
-            console.log(error.message)
+            
         } 
 
 
@@ -90,7 +87,7 @@ export default function UserPanel({handleSetRemaining, is_private, amount, icon,
           setError(undefined)
           return
         } catch (error) {
-          console.log(error.message)
+          
           setError(error.reason)
           closeLoadingModal()
           return false

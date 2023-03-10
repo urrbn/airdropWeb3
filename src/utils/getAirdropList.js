@@ -58,7 +58,7 @@ export const sortAirdrops = async (airdrops) => {
     }
     
   }catch (error){
-    console.log(error.message)
+    
     return {
       success: false
     }
@@ -72,7 +72,6 @@ export const getAirdropStatus = async (address) => {
   const ethcallProvider = new Provider(provider)
   await ethcallProvider.init()
   let calls = []
-  console.log(address, 'addr')
   const contract = new Contract(address[0], PrivateAirdropAbi)
   calls.push(contract.airDropStarted())
   calls.push(contract.airdropEmpty())
@@ -110,7 +109,6 @@ export const getUserParticipationPrivate = async (address, account) => {
   const ethcallProvider = new Provider(provider)
   await ethcallProvider.init()
   let calls = []
-  console.log(address, 'addr')
   const contract = new Contract(address, PrivateAirdropAbi)
   calls.push(contract.isWL(account))
   calls.push(contract.userToParticipation(account))
@@ -144,7 +142,6 @@ export const getUserParticipationPublic = async (address, account) => {
   const ethcallProvider = new Provider(provider)
   await ethcallProvider.init()
   let calls = []
-  console.log(address, 'addr')
   const contract = new Contract(address, PublicAirdropAbi)
   calls.push(contract.isAirdropClaimed(account))
   calls.push(contract.portionSize())
@@ -228,7 +225,6 @@ export const getPublicAirdropsInfos = async (address) => {
   try {
     const resCall = await ethcallProvider.all(calls)
     result.push(resCall)
-    console.log(result, 'result')
     return {
       success: true,
       data: result,
@@ -257,13 +253,11 @@ export const getPublicAirdrops = async (address) => {
    
     const resCall = await ethcallProvider.all(calls)
     result.push(resCall)
-    console.log(result[0][1].isPrivate, 'ress')
-    
+
     
     for (let i = 0; i < address.length; i++) {
       if(result[0][i].isPrivate === false){
         publicAirdrops.push(address[i])
-        console.log(publicAirdrops, 'publicairdrops')
       }
       
     }
@@ -286,25 +280,23 @@ export const getAirdropList = async () => {
     END = 0
   try {
     const totalData = await getTotalAirdrop()
-    console.log(totalData.data.number, 'totalData');
-    //console.log(TOTAL_DATA_DISPLAY, 'TOTAL_DATA_DISPLAY');
+    //
 
     if (totalData.success) {
       if (totalData.data.number < TOTAL_DATA_DISPLAY) {
-        console.log(TOTAL_DATA_DISPLAY, 'TOTAL_DATA_DISPLAY');
         START = 0
         END = totalData.data.number
-        console.log(END, 'END');
+        
       } else {
-        //console.log(END, 'END');
+        //
         END = totalData.data.number >= TOTAL_DATA_DISPLAY ? totalData.data.number : TOTAL_DATA_DISPLAY
-        console.log(END, 'END');
+        
         START = totalData.data.number >= TOTAL_DATA_DISPLAY ? totalData.data.number - TOTAL_DATA_DISPLAY : 0
-        console.log(START, 'START');
+        
       }
     }
   } catch (error) {
-    console.log(error.message)
+    
     return {
       success: false,
       data: {},
@@ -346,13 +338,13 @@ export const getTotalAirdrop = async () => {
   try {
     const numberCall = await tokenContract.getNumberOfAirdropsDeployed()
     const [number] = await ethcallProvider.all([numberCall]);
-    console.log(number, 'number')
+    
     return {
       success: true,
       data: { number: number.toNumber()},
     }
   } catch (error) {
-    console.log(error.message)
+    
     return {
       success: false,
       data: { token: 0 },

@@ -28,9 +28,6 @@ export default function AddAllocationsCreation({decimals, airdropAddress, showMo
         var amount = parseUnits(amounts[i], decimals)
         amountsBigNumber.push(amount);
     }
-    console.log(addys, 'addys')
-    console.log(amounts, 'amounts')
-    console.log(amountsBigNumber, 'amountsBigNumber')       
 
     const contract = new Contract(airdropAddress, PrivateAirdropAbi, library.getSigner())
     try {

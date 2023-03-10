@@ -29,10 +29,6 @@ export default function StartPublicAirdropCreationPage({ decimals, tokenAddress,
   };
 
 
-  console.log(airdropAddress, 'airdropAddress')
-  console.log(tokenAddress, 'tokenAddress')
-  console.log(isChecked, 'isChecked')
-
 
   useEffect(() => {
     let totalAmount = claimSize * numberOfClaims;
@@ -50,17 +46,12 @@ export default function StartPublicAirdropCreationPage({ decimals, tokenAddress,
     refresh: 5,
   })
 
-  console.log(allowance, 'allowance')
-  console.log(balance, 'balance')
-  
-  console.log(tokenAddress, 'tokenAddress')
 
   const needApprove = useMemo(() => {
     if(totalAmountToAirdrop > 0){
       if (typeof allowance === 'undefined') {
         return true
       }
-      console.log(allowance, 'lll')
       return totalAmountToAirdrop.gt(allowance)
     }
     
@@ -77,11 +68,6 @@ export default function StartPublicAirdropCreationPage({ decimals, tokenAddress,
 
   }, [totalAmountToAirdrop, needApprove, balance])
 
-  console.log(needApprove, 'needApprove')
-  console.log(isValid, 'isValid')
-  console.log(isChecked, 'isChecked')
-  console.log((Math.floor(Date.now() / 1000) + 120), 'Math.floor(Date.now() / 1000)')
-
 
 
   const handleApprove = async () => {
@@ -94,7 +80,6 @@ export default function StartPublicAirdropCreationPage({ decimals, tokenAddress,
       setError(undefined);
     } catch (error) {
 
-      console.log(error.reason, 'reason');
       setError(error.reason);
 
       closeLoadingModal()
@@ -121,7 +106,6 @@ export default function StartPublicAirdropCreationPage({ decimals, tokenAddress,
           return
         } catch (error) {
           
-          console.log(error.reason, 'reason');
           setError(error.reason);
           closeLoadingModal()
           return false

@@ -21,7 +21,7 @@ export function useAirdropIsWL(airdropAddress, account) {
       }
     ) ?? {}
   if (error) {
-    console.log(error.message, 'errr')
+    
     return error
   }
   return value
@@ -41,7 +41,7 @@ export function useAirdropGetParticipation(airdropAddress, account) {
       }
     ) ?? {}
   if (error) {
-    console.log(error.message, 'errr')
+    
     return error
   }
   return value
@@ -61,7 +61,7 @@ export function useAirdropIsClaimed(airdropAddress, account) {
         }
       ) ?? {}
     if (error) {
-      console.log(error.message, 'errr')
+      
       return error
     }
     return value
@@ -81,7 +81,7 @@ export function useAirdropPortionSize(airdropAddress, account) {
         }
       ) ?? {}
     if (error) {
-      console.log(error.message, 'errr')
+      
       return error
     }
     return value

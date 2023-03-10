@@ -20,7 +20,7 @@ function useAirdropOwner(airdropAddress) {
       }
     ) ?? {}
   if (error) {
-    console.log(error.message, 'errr')
+    
     return error
   }
   return value

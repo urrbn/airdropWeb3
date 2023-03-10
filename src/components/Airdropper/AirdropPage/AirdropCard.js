@@ -16,10 +16,8 @@ export default function AirdropCard({ data, status,  privateCard }) {
       try {
 
         const publicAirdropInfos = await getPublicAirdropsInfos([data.address]);
-        console.log(publicAirdropInfos.data[0][1], 'publicAirdropInfos')
         const numberOfClaimsNum = formatUnits(publicAirdropInfos.data[0][1], 0)
         setNumberOfclaims(numberOfClaimsNum)
-        console.log(numberOfClaimsNum, 'numberOfClaimsNum')
       } catch (error) {
         // Handle the error
       }
@@ -27,7 +25,6 @@ export default function AirdropCard({ data, status,  privateCard }) {
   }
   let totalAmount = Number(formatUnits(data.info.totalAmountToAirdrop, 18));
   const tags = data.info.description[2].split(",");
-  console.log(tags, "tags");
 
   let totalDistributed = Number(
     formatUnits(data.info.totalAmountDistributed, 18)
@@ -35,7 +32,6 @@ export default function AirdropCard({ data, status,  privateCard }) {
   let remaining = totalAmount - totalDistributed;
   let filledPerc = (remaining / totalAmount) * 100;
 
-  console.log(totalAmount, "totalAmount");
   if (totalAmount === 0) {
     filledPerc = "NotStartedYet";
   }

@@ -43,7 +43,7 @@ export default function Infopage({ setActive, setAirdropData, airdropData }) {
     setEnable(false)
     setVisible(false)
     setAddress(e.target.value)
-    console.log(isAddress(e.target.value), 'isAddress(e.target.value)')
+    
     if (isAddress(e.target.value)) {
       openLoadingModal()
       const tokenInfo = await getTokenInfo(e.target.value)

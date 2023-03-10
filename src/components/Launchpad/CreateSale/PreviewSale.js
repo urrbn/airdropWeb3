@@ -8,7 +8,7 @@ import PreviewDetails from '../../Common/PreviewDetails';
 export default function PreviewSale({ token, setActive, saleObject, saleType }) {
 
   const handleSubmit = () => {
-    console.log("Submitted");
+    
   }
 
   return (

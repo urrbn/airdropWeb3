@@ -20,7 +20,7 @@ export function useAirdropIsCancelled(airdropAddress) {
       }
     ) ?? {}
   if (error) {
-    console.log(error.message, 'errr')
+    
     return error
   }
   return value
@@ -40,7 +40,7 @@ export function useAirdropIsEmpty(airdropAddress) {
         }
       ) ?? {}
     if (error) {
-      console.log(error.message, 'errr')
+      
       return error
     }
     return value
@@ -60,7 +60,7 @@ export function useAirdropIsStarted(airdropAddress) {
         }
       ) ?? {}
     if (error) {
-      console.log(error.message, 'errr')
+      
       return error
     }
     return value

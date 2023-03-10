@@ -31,7 +31,6 @@ export default function Preview({
   const { theme } = useContext(ThemeContext);
 
   const [tokenData, setTokenData] = useState({ ...initTokenData });
-  console.log(airdrop.info.description)
   useEffect(() => {
     const handleFetch = async () => {
       const tokenInfo = await getTokenInfo(tokenAddress);

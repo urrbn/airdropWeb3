@@ -23,7 +23,6 @@ export default function Createsale({ setAirdropData, airdropData, token, setActi
   const navigate = useNavigate()
 
   const { open: openLoadingModal, close: closeLoadingModal } = useModal('LoadingModal')
-  console.log(airdropData.tokenAddress, 'airdropData.tokenAddress')
 
   const handleCreateAirdrop = async () => {
     openLoadingModal()
@@ -31,7 +30,6 @@ export default function Createsale({ setAirdropData, airdropData, token, setActi
     
     debugger 
     const fee = await contract.fee();
-    console.log(fee, 'fee')
     try {
 
       const createAirdrop = await contract.deployAirdrop(airdropData.tokenAddress,
@@ -56,7 +54,6 @@ export default function Createsale({ setAirdropData, airdropData, token, setActi
       showModal(2)
       return
     } catch (error) {
-      console.log(error.message, 'eee')
       closeLoadingModal()
       return false
     }

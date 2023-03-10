@@ -30,7 +30,7 @@ export const getTokenInfo = async (address) => {
       },
     }
   } catch (error) {
-    console.log(error.message);
+    
     return {
       success: false,
       data: {},
