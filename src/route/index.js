@@ -16,14 +16,14 @@ import { Navigate } from 'react-router-dom'
 export default function WebRouter() {
   let routes = useRoutes([
     { path: '/', element: <Navigate to="/airdropper/airdrops" replace /> }, // Redirect to /airdropper/airdrops
-    { path: '/locked-assets', element: <Locker /> },
-    { path: '/locked-assets/token/:id', element: <LockedAsset type={'token'} /> },
-    { path: '/locked-assets/lp-token/:id', element: <LockedAsset type={'lp-token'} /> },
-    { path: '/locker/token-locker', element: <TokenLocker /> },
-    { path: '/locker/lp-locker', element: <LpLocker /> },
-    { path: '/launchpad/pools', element: <Pools /> },
-    { path: '/launchpad/pools/:id', element: <PoolPage /> },
-    { path: '/launchpad/create-sale', element: <CreateSale /> },
+    // { path: '/locked-assets', element: <Locker /> },
+    // { path: '/locked-assets/token/:id', element: <LockedAsset type={'token'} /> },
+    // { path: '/locked-assets/lp-token/:id', element: <LockedAsset type={'lp-token'} /> },
+    // { path: '/locker/token-locker', element: <TokenLocker /> },
+    // { path: '/locker/lp-locker', element: <LpLocker /> },
+    // { path: '/launchpad/pools', element: <Pools /> },
+    // { path: '/launchpad/pools/:id', element: <PoolPage /> },
+    // { path: '/launchpad/create-sale', element: <CreateSale /> },
     { path: '/airdropper/airdrops', element: <Airdrops />},
     { path: '/airdropper/airdrops/:id', element: <AirdropsPage />},
     { path: '/airdropper/create-airdrop', element: <CreateAirdrop />},

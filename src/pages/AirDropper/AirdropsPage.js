@@ -45,6 +45,13 @@ export default function PoolPage() {
     
   }, [owner])
 
+
+  useEffect(() => {
+    if (asset) {
+    console.log(asset, 'asset.name') 
+    }
+  }, [asset])
+
   useEffect(() => {
     let activated = true
     const handleFetch = async () => {
@@ -86,6 +93,8 @@ export default function PoolPage() {
         }
         if (info.success) {
           setAsset(info.data[0])
+
+          document.title = info.data[0].info.description[7]
           setReady(true)
           return
         } else {
@@ -119,7 +128,7 @@ export default function PoolPage() {
           {modal === 4 && <StartPublicAirdrop decimals={18} tokenAddress={token}  showModal={showModal} modal={modal}/>}
         </div>
       }
-      <BaseLayout page_name={'Airdrops'} title={asset.name} subpage admin={adminMode} setAdminMode={setAdminMode}>
+      <BaseLayout page_name={'Airdrops'} title={asset.info.description[7]} subpage admin={adminMode} setAdminMode={setAdminMode}>
         <AirdropPageBase status={status} airdrop={asset} showModal={showModal} admin={adminMode} owner={owner}/>
       </BaseLayout>
     </div>
