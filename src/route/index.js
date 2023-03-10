@@ -15,7 +15,7 @@ import { Navigate } from 'react-router-dom'
 
 export default function WebRouter() {
   let routes = useRoutes([
-    { path: '/', element: <Navigate to="/airdropper/airdrops" replace /> }, // Redirect to /airdropper/airdrops
+    { path: '/', element: <Airdrops /> }, // Redirect to /airdropper/airdrops
     // { path: '/locked-assets', element: <Locker /> },
     // { path: '/locked-assets/token/:id', element: <LockedAsset type={'token'} /> },
     // { path: '/locked-assets/lp-token/:id', element: <LockedAsset type={'lp-token'} /> },

@@ -129,7 +129,7 @@ export default function Sidebar({ fullSidebar, tempfixed, handleTempFixed, activ
                 )}
               </div>
             </Link>
-
+              {nav_item.id !== 1 &&
             <div className={`bg-[#FAF8F5] dark:bg-dark-2 flex flex-col pl-[35%] mt-3  overflow-hidden ${activeItem === nav_item.name ? "transition-sidebar-open pb-5" : "transition-sidebar-close"}`}>
               {nav_item.subitems.map((subItem, index) => (
                 <a key={index} href={subItem.link} className="mt-5">
@@ -143,7 +143,7 @@ export default function Sidebar({ fullSidebar, tempfixed, handleTempFixed, activ
                   </span>
                 </a>
               ))}
-            </div>
+            </div>}
 
           </div>
         ))}
