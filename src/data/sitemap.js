@@ -7,7 +7,7 @@ export const sitemap = [
     id: 1,
     name: 'Home',
     extendable: false,
-    icon: <DashboardSVG className="fill-dim-text dark:fill-dim-text-dark" />,
+    icon: <DashboardSVG className="fill-dim-text dark:fill-dim-text-dark hover:fill-primary-green" />,
     activeIcon: <DashboardSVG className="fill-primary-green" />,
     subitems: [],
     link: '/',
@@ -62,8 +62,8 @@ export const sitemap = [
     id: 4,
     name: 'Airdropper',
     extendable: true,
-    icon: <AirplaneSVG className="fill-dim-text dark:fill-dim-text-dark" />,
-    activeIcon: <AirplaneSVG className="fill-primary-green" />,
+    icon: <AirplaneSVG className="fill-dim-text dark:fill-dim-text-dark scale-[1.2]" />,
+    activeIcon: <AirplaneSVG className="fill-primary-green scale-[1.2]" />,
     subitems: [
       {
         id: 1,

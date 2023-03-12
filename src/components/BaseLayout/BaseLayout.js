@@ -52,7 +52,7 @@ export default function BaseLayout({
             <div
               className={`${
                 sideBarMobile ? 'block' : 'hidden'
-              } md:hidden w-[240px] h-screen bg-white absolute dark:bg-dark-1 `}
+              } md:hidden w-[270px] h-screen bg-white absolute dark:bg-dark-1 `}
             >
               <Sidebar
                 fullSidebar={true}
@@ -66,7 +66,7 @@ export default function BaseLayout({
         {noSidebar ? null : (
           <div
             className={`hidden md:flex w-[270px] bg-white dark:bg-dark-1 ${Styles.sideBar} ease-in-out duration-300 ${
-              showSidebar ? 'translate-x-0' : '-translate-x-[170px]'
+              showSidebar ? 'translate-x-0' : '-translate-x-[130px]'
             }`}
           >
             <Sidebar
@@ -76,7 +76,7 @@ export default function BaseLayout({
               activeLink={activeItem}
             />
 
-            <div className="absolute z-100 ml-[90%] mt-32">
+            <div className="absolute z-100 ml-[90%] mt-20">
               <div
                 className="h-12 w-12 bg-white dark:bg-dark-1 rounded-full flex justify-center items-center cursor-pointer"
                 onClick={() => setShowSidebar(!showSidebar)}

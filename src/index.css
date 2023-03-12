@@ -9,6 +9,11 @@
 }
 
 @font-face {
+  font-family: GilroySemiBold;
+  src: url('../public/fonts/Gilroy-Font/Gilroy-Semibold.woff2');
+}
+
+@font-face {
   font-family: GilroyBold;
   src: url('../public/fonts/Gilroy-Font/Gilroy-Bold.woff2');
 }
