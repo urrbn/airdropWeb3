@@ -87,7 +87,7 @@ export const sitemap = [
     subitems: [
       {
         id: 1,
-        name: 'DEX',
+        name: 'Trade',
         link: 'https://www.arborswap.org/swap',
       },
       {
